@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Control | JBPS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase App & Database Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <style>
+        body { 
+            background: #020617; 
+            color: #e2e8f0; 
+            font-family: 'Poppins', sans-serif; 
+            padding: 20px; 
+            margin: 0;
+        }
+        .header { 
+            color: #38bdf8; 
+            text-align: center; 
+            border-bottom: 2px solid #1e293b; 
+            padding-bottom: 15px; 
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .card { 
+            background: #0f172a; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            border: 1px solid #1e293b;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+        }
+        h3 { color: #94a3b8; font-size: 1.1rem; margin-bottom: 15px; margin-top: 0; }
+        input { 
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; 
+            border: 1px solid #334155; background: #1e293b; color: white; font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        input:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        button { 
+            width: 100%; padding: 15px; border: none; border-radius: 8px; 
+            font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.2s;
+        }
+        button:active { transform: scale(0.98); }
+        .btn-update { background: linear-gradient(45deg, #2563eb, #3b82f6); color: white; }
+        .btn-success { background: linear-gradient(45deg, #059669, #10b981); color: white; }
+        .btn-danger { background: linear-gradient(45deg, #dc2626, #ef4444); color: white; }
+        .stat-box { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .stat { 
+            text-align: center; background: #1e293b; padding: 15px 10px; width: 47%; 
+            border-radius: 8px; border: 1px solid #334155;
+        }
+        .stat span { display: block; font-size: 2rem; color: #fbbf24; font-weight: 700; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">⚙️ MASTER CONTROL</div>
+
+    <!-- Section 1: Set Act -->
+    <div class="card">
+        <h3>1. Setup New Performance</h3>
+        <input type="text" id="actName" placeholder="Act Name (e.g., Solo Dance)">
+        <input type="text" id="actGroup" placeholder="Performer (e.g., By Rahul, 12-A)">
+        <button class="btn-update" onclick="updateAct()">🚀 Push to Live Feed</button>
+    </div>
+
+    <!-- Section 2: Live Tracking -->
+    <div class="card">
+        <h3>2. Live Voting Engine</h3>
+        <div class="stat-box">
+            <div class="stat">Total Votes <span id="totalVotes">0</span></div>
+            <div class="stat">Avg Rating <span id="avgRating">0.0</span></div>
+        </div>
+        <button class="btn-success" onclick="showResults()">📊 Flash Results on Projector</button>
+    </div>
+
+    <!-- Section 3: Reset -->
+    <div class="card" style="border-left: 4px solid #ef4444;">
+        <h3 style="color: #ef4444;">3. Danger Zone</h3>
+        <button class="btn-danger" onclick="resetVoting()">🗑️ Lock Voting & Reset for Next</button>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            databaseURL: "https://jbps-voting-app-64e09-default-rtdb.firebaseio.com/"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        function updateAct() {
+            let name = document.getElementById('actName').value;
+            let group = document.getElementById('actGroup').value;
+            if(!name) { alert("Act ka naam daal bhai!"); return; }
+
+            // Database mein current act save karo
+            db.ref('currentAct').set({
+                name: name,
+                group: group
+            });
+
+            // Purane votes clear karo naye act ke liye
+            db.ref('currentVotes').remove();
+
+            alert("Boom! '" + name + "' is now LIVE on all phones!");
+        }
+
+        // Real-time votes aur average calculate karna
+        db.ref('currentVotes').on('value', (snapshot) => {
+            let data = snapshot.val();
+            let totalVotes = 0;
+            let sum = 0;
+
+            if (data) {
+                let votesArray = Object.values(data);
+                totalVotes = votesArray.length;
+                sum = votesArray.reduce((a, b) => a + b, 0);
+            }
+
+            let avg = totalVotes > 0 ? (sum / totalVotes).toFixed(1) : "0.0";
+
+            document.getElementById('totalVotes').innerText = totalVotes;
+            document.getElementById('avgRating').innerText = avg;
+        });
+
+        function showResults() {
+            // Projector screen ko signal bhejo result dikhane ka
+            db.ref('screenState').set({
+                action: 'showResult'
+            });
+            alert("Suspense flashed on projector screen!");
+        }
+
+        function resetVoting() {
+            if(confirm("Lock voting for next act?")) {
+                db.ref('currentAct').set({
+                    name: "Waiting for next act...",
+                    group: ""
+                });
+                db.ref('currentVotes').remove();
+                db.ref('screenState').set({ action: 'waiting' });
+                alert("Reset done successfully!");
+            }
+        }
+    </script>
+</body>
+          </html>
+          
