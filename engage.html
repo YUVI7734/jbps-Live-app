@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Audience Engagement - Ullas 2.0</title>
     
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --dark-bg: #0b132b;
             --gold: #f1c40f;
-            --gold-light: #f6e58d;
         }
 
         body {
@@ -23,6 +23,7 @@
             overflow: hidden; 
         }
 
+        /* Modals & Overlays */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -47,7 +48,6 @@
             width: 85%;
             max-width: 400px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(241, 196, 15, 0.1);
-            animation: slideDown 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .modal-title {
@@ -85,6 +85,7 @@
 
         .btn-gold:active { transform: scale(0.95); }
 
+        /* Main Screen Elements */
         #mainScreen {
             display: none;
             flex-direction: column;
@@ -96,89 +97,116 @@
             animation: fadeIn 1s ease forwards;
         }
 
-        .top-logo {
-            width: 60px;
-            background: white;
-            padding: 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            margin-bottom: 10px;
-        }
-
-        .ullas-text {
-            font-family: 'Yatra One', serif;
-            font-size: 40px;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0 0 20px 0;
-        }
-
-        .live-section {
-            width: 90%;
-            border-top: 1px solid rgba(241, 196, 15, 0.4);
-            border-bottom: 1px solid rgba(241, 196, 15, 0.4);
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .live-title {
+        .header-title {
             color: var(--gold);
-            font-size: 26px;
+            font-size: 28px;
             font-family: serif;
             font-weight: bold;
-            margin: 0;
+            margin-bottom: 30px;
             letter-spacing: 1px;
+            border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+            padding-bottom: 10px;
+            width: 90%;
+            text-align: center;
+        }
+
+        /* --- CLASSY LIVE BOX CSS --- */
+        .live-card-container {
+            position: relative;
+            width: 90%;
+            max-width: 450px;
+            display: none; /* Will be shown via JS when an act is live */
+            margin-top: 20px;
         }
 
         .live-badge {
-            background: #e74c3c;
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #ff4757;
             color: white;
             padding: 5px 15px;
             font-size: 12px;
             font-weight: bold;
             border-radius: 20px;
-            display: inline-block;
-            margin-top: 15px;
-            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+            z-index: 10;
             animation: pulseRed 1.5s infinite;
         }
 
-        .current-performance {
-            font-size: 18px;
-            color: white;
-            margin-top: 15px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.4; 
-            transition: opacity 0.5s;
-        }
-
-        .interactive-area {
-            margin-top: 50px;
-            flex-grow: 1;
+        .classy-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(241, 196, 15, 0.5); /* Gold outline */
+            border-radius: 25px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 100%;
+            justify-content: space-between;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        @keyframes slideDown {
-            0% { transform: translateY(-50px) scale(0.9); opacity: 0; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
+        .profile-pic {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            background: #222;
         }
+
+        .perf-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .perf-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: white;
+        }
+
+        .perf-class {
+            font-size: 13px;
+            color: #bdc3c7;
+            margin: 5px 0 0 0;
+        }
+
+        .action-btn {
+            background: var(--gold);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .action-btn:active { transform: scale(0.95); }
+
+        .waiting-text {
+            color: #7f8fa6;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 50px;
+            font-style: italic;
+        }
+
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes pulseRed {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
         }
     </style>
 </head>
 <body>
 
+    <!-- Language Selection Modal -->
     <div id="languageModal" class="modal-overlay">
         <div class="glass-card">
             <h2 class="modal-title">Choose Your Language</h2>
@@ -189,6 +217,7 @@
         </div>
     </div>
 
+    <!-- Disclaimer Modal -->
     <div id="disclaimerModal" class="modal-overlay" style="display: none;">
         <div class="glass-card">
             <h2 class="modal-title" id="discTitle">Important Note</h2>
@@ -199,21 +228,31 @@
         </div>
     </div>
 
+    <!-- Main Screen -->
     <div id="mainScreen">
-        <img src="logo.png" alt="JBS Logo" class="top-logo">
-        <h1 class="ullas-text">उल्लास 2.0</h1>
+        <h2 class="header-title">Live Performances</h2>
 
-        <div class="live-section">
-            <h2 class="live-title">Live Performances</h2>
-            <div class="live-badge">🔴 LIVE NOW</div>
-            <div class="current-performance" id="performanceName">
-                Waiting for Next Act...
+        <!-- CLASSY BOX (Hidden until Admin triggers a live act) -->
+        <div class="live-card-container" id="liveContainer">
+            <div class="live-badge">LIVE NOW</div>
+            <div class="classy-box">
+                <!-- Circular Image -->
+                <img src="" alt="Performance Image" class="profile-pic" id="livePic">
+                
+                <!-- Text Details -->
+                <div class="perf-details">
+                    <h3 class="perf-name" id="liveName">Act Name</h3>
+                    <p class="perf-class" id="liveClass">Class Details</p>
+                </div>
+                
+                <!-- Button redirecting to show.html -->
+                <button class="action-btn" onclick="window.location.href='show.html'">Join ✨</button>
             </div>
         </div>
 
-        <div class="interactive-area" id="lightShowArea">
-            <p style="color: #7f8fa6; font-size: 14px; text-align: center;" id="interactionStatus">Interactive elements will appear here during the performance.</p>
-        </div>
+        <!-- Waiting Message (Shows when no act is live) -->
+        <p class="waiting-text" id="waitingMsg">Waiting for the next act to begin...</p>
+
     </div>
 
     <!-- Firebase SDK Setup -->
@@ -265,27 +304,42 @@
             setTimeout(() => {
                 document.getElementById('disclaimerModal').style.display = 'none';
                 document.body.style.overflow = 'auto'; 
-                
-                const mainScreen = document.getElementById('mainScreen');
-                mainScreen.style.display = 'flex';
+                document.getElementById('mainScreen').style.display = 'flex';
             }, 500);
         }
 
-        // Listens to the 'current_act' node in your Firebase DB
+        // Firebase Listener for updating the Classy Box
         database.ref('current_act').on('value', (snapshot) => {
             const data = snapshot.val();
-            if(data && data.name) {
-                const perfElement = document.getElementById('performanceName');
-                perfElement.innerText = data.name;
-                perfElement.style.opacity = '1'; 
+            const liveContainer = document.getElementById('liveContainer');
+            const waitingMsg = document.getElementById('waitingMsg');
+
+            if(data && data.status === "live") {
+                // Populate the box with Admin's data
+                document.getElementById('liveName').innerText = data.name;
+                document.getElementById('liveClass').innerText = data.class || "";
+                
+                // Set image (fallback to a transparent/blank if no custom pic)
+                const picElement = document.getElementById('livePic');
+                if(data.pic) {
+                    picElement.src = data.pic;
+                    picElement.style.display = 'block';
+                } else {
+                    picElement.src = ""; // Clear if empty
+                    picElement.style.display = 'none'; // Hide empty circle
+                }
+                
+                // Switch UI from "Waiting" to "Live Box"
+                liveContainer.style.display = 'block';
+                waitingMsg.style.display = 'none';
             } else {
-                const perfElement = document.getElementById('performanceName');
-                perfElement.innerText = "Waiting for Next Act...";
-                perfElement.style.opacity = '0.4'; 
+                // Hide box, show waiting message
+                liveContainer.style.display = 'none';
+                waitingMsg.style.display = 'block';
             }
         });
 
     </script>
 </body>
-          </html>
-          
+    </html>
+    
