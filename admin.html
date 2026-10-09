@@ -13,148 +13,120 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--dark-bg);
             color: var(--neon-green);
-            font-family: 'Courier New', Courier, monospace; /* Terminal Font */
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        /* Login Screen */
+        /* SECURE LOGIN */
         #loginScreen {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: black;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: black; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
         }
-
         .terminal-box {
-            border: 1px solid var(--neon-green);
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
-            background: rgba(0,255,0,0.05);
+            border: 1px solid var(--neon-green); padding: 40px; text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); background: rgba(0,255,0,0.05);
         }
-
         .hacker-input {
-            background: black;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            padding: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            text-align: center;
-            outline: none;
-            margin: 10px 0;
-            width: 200px;
+            background: black; border: 1px solid var(--neon-green); color: var(--neon-green);
+            padding: 10px; font-family: 'Courier New', monospace; font-size: 18px;
+            text-align: center; outline: none; margin: 10px 0; width: 200px;
         }
-
         .hacker-btn {
-            background: transparent;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            padding: 10px 20px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.2s;
-            margin: 5px;
+            background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
+            padding: 10px 20px; font-family: 'Courier New', monospace; font-weight: bold;
+            cursor: pointer; text-transform: uppercase; transition: 0.2s; margin: 5px;
         }
-
-        .hacker-btn:hover, .hacker-btn.active {
-            background: var(--neon-green);
-            color: black;
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-
+        .hacker-btn:hover { background: var(--neon-green); color: black; box-shadow: 0 0 10px var(--neon-green); }
         .btn-danger { color: #f00; border-color: #f00; }
         .btn-danger:hover { background: #f00; color: #000; box-shadow: 0 0 10px #f00; }
 
-        /* Main Admin Dashboard */
-        #adminPanel {
-            display: none;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
+        /* MAIN DASHBOARD */
+        #adminPanel { display: none; padding: 20px; max-width: 1000px; margin: 0 auto; }
         .header-title {
-            text-align: center;
-            font-size: 28px;
-            text-shadow: 0 0 10px var(--neon-green);
-            margin-bottom: 30px;
-            border-bottom: 1px dashed var(--neon-green);
-            padding-bottom: 10px;
+            text-align: center; font-size: 28px; text-shadow: 0 0 10px var(--neon-green);
+            margin-bottom: 30px; border-bottom: 1px dashed var(--neon-green); padding-bottom: 10px;
         }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .control-panel {
-            background: var(--panel-bg);
-            border: 1px solid #333;
-            padding: 20px;
-            border-top: 3px solid var(--neon-green);
+            background: var(--panel-bg); border: 1px solid #333; padding: 20px; border-top: 3px solid var(--neon-green);
         }
-
         .control-panel h3 { margin-top: 0; color: white; border-bottom: 1px solid #333; padding-bottom: 10px; }
-
         .input-group { margin-bottom: 15px; display: flex; flex-direction: column; }
         .input-group label { margin-bottom: 5px; font-size: 14px; }
-        .input-group input[type="text"], .input-group input[type="number"], .input-group input[type="file"] {
-            background: black;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px;
-            font-family: 'Courier New', monospace;
+        .input-group input, .input-group select {
+            background: black; border: 1px solid #444; color: white; padding: 10px; font-family: 'Courier New', monospace;
         }
 
-        /* Saved Acts List */
-        .act-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .act-item {
-            background: #000;
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .act-details { flex-grow: 1; }
+        /* ACT LIST */
+        .act-list { max-height: 400px; overflow-y: auto; }
+        .act-item { background: #000; border: 1px solid #333; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         .act-id { font-weight: bold; color: var(--neon-green); margin-right: 10px; }
         .act-pic { width: 50px; height: 50px; object-fit: cover; border: 1px solid #444; margin-right: 15px; }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            font-size: 12px;
-            margin-top: 5px;
-            background: #222;
-        }
-        .status-live { color: #f1c40f; border: 1px solid #f1c40f; }
 
-        /* Responsive */
-        @media(max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
+        /* =========================================================
+           DJ LIVE CONTROLLER (THE KEYBOARD)
+           ========================================================= */
+        #djController {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #050505; z-index: 10000; padding: 10px; box-sizing: border-box;
+            flex-direction: column;
         }
+        
+        /* Landscape Warning */
+        @media screen and (orientation: portrait) {
+            #djController::before {
+                content: "ROTATE PHONE TO LANDSCAPE 🔄 FOR BEST DJ EXPERIENCE";
+                display: block; background: #f00; color: white; text-align: center;
+                padding: 10px; font-weight: bold; width: 100%; box-sizing: border-box; margin-bottom: 10px;
+            }
+        }
+
+        .dj-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
+        
+        /* Live Preview Screen (Mini Phone) */
+        .preview-container {
+            display: flex; flex-direction: column; align-items: center; margin: 0 auto 20px auto;
+        }
+        .mini-screen {
+            width: 250px; height: 120px; border: 3px solid #555; border-radius: 10px;
+            background: black; position: relative; overflow: hidden; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .mini-screen p { margin: 0; color: white; font-family: sans-serif; font-weight: bold; text-shadow: 0 0 5px black; z-index: 2; }
+
+        /* The Keyboard Grid */
+        .dj-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-grow: 1;
+        }
+        .dj-btn {
+            border: none; border-radius: 5px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            font-size: 14px; transition: transform 0.1s;
+        }
+        .dj-btn:active { transform: scale(0.95); }
+        
+        /* Color Classes for DJ Keyboard */
+        .c-red { background: #ff0000; color: white; }
+        .c-blue { background: #0000ff; color: white; }
+        .c-green { background: #00ff00; color: black; }
+        .c-gold { background: #f1c40f; color: black; }
+        .c-purple { background: #8e44ad; color: white; }
+        .c-cyan { background: #00ffff; color: black; }
+        .c-black { background: #111; color: white; border: 1px solid #444; }
+        .c-tiranga { background: linear-gradient(90deg, #ff9933, #ffffff, #138808); color: black; text-shadow: 0 0 2px white; }
+        .c-strobe { background: white; color: black; animation: flash 0.2s infinite; }
+        
+        @keyframes flash { 0% { background: white; } 50% { background: black; color: white; } 100% { background: white; } }
+        
+        @media(max-width: 768px) { .grid-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <!-- SECURE LOGIN SCREEN -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="loginScreen">
         <div class="terminal-box">
             <h2>SYSTEM LOCKED</h2>
@@ -166,23 +138,22 @@
         </div>
     </div>
 
-    <!-- MAIN ADMIN DASHBOARD -->
+    <!-- 2. MAIN DASHBOARD -->
     <div id="adminPanel">
         <h1 class="header-title">Welcome YUVI ❤️ 11/11</h1>
         
         <div class="grid-container">
             
-            <!-- LEFT PANEL: ADD NEW ACT -->
+            <!-- LEFT PANEL: ADD ACT -->
             <div class="control-panel">
                 <h3>[+] REGISTER NEW PERFORMANCE</h3>
-                
                 <div class="input-group">
                     <label>S.No.</label>
                     <input type="number" id="actNo" placeholder="e.g., 1">
                 </div>
                 <div class="input-group">
                     <label>Performance Name</label>
-                    <input type="text" id="actName" placeholder="e.g., Group Dance - Patriotism">
+                    <input type="text" id="actName" placeholder="e.g., Group Dance">
                 </div>
                 <div class="input-group">
                     <label>Class / Group</label>
@@ -191,7 +162,15 @@
                 <div class="input-group">
                     <label>Custom Picture</label>
                     <input type="file" id="actPic" accept="image/*">
-                    <small style="color:#666;">Will be converted to secure base64 string</small>
+                </div>
+                <div class="input-group">
+                    <label>Auto-Start Visual Effect</label>
+                    <select id="actFx">
+                        <option value='{"type":"solid","color":"#050505"}'>Default Dark</option>
+                        <option value='{"type":"pulse","color":"#0000ff"}'>Blue Pulse</option>
+                        <option value='{"type":"tiranga","color":""}'>Tiranga 🇮🇳</option>
+                        <option value='{"type":"solid","color":"#f1c40f"}'>Gold Glow</option>
+                    </select>
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
@@ -200,33 +179,59 @@
                 </div>
             </div>
 
-            <!-- RIGHT PANEL: MASTER FX CONTROLS & CURRENT STATE -->
+            <!-- RIGHT PANEL: MASTER CONTROLS -->
             <div class="control-panel">
-                <h3>[!] MASTER CONTROLLERS</h3>
-                
+                <h3>[!] LIVE STATUS</h3>
                 <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid #f1c40f; padding: 15px; margin-bottom: 20px;">
-                    <p style="margin: 0; color: #f1c40f;"><strong>CURRENT LIVE STATUS:</strong></p>
-                    <h2 id="liveActDisplay" style="color: white; margin: 10px 0;">OFFLINE</h2>
+                    <h2 id="liveActDisplay" style="color: white; margin: 0 0 10px 0;">OFFLINE</h2>
                     <button class="hacker-btn btn-danger" onclick="endCurrentAct()">[ END CURRENT ACT ]</button>
                 </div>
 
-                <h3>AUDIENCE FX (SPECIAL EFFECTS)</h3>
-                <p style="font-size: 12px; color: #888;">Triggers immediate visual changes on all 2000+ audience devices.</p>
-                <button class="hacker-btn" onclick="triggerFX('normal')">NORMAL (RESET)</button>
-                <button class="hacker-btn" onclick="triggerFX('pulse')" style="color: #3498db; border-color: #3498db;">BLUE PULSE</button>
-                <button class="hacker-btn" onclick="triggerFX('tiranga')" style="color: #e67e22; border-color: #e67e22;">TIRANGA FLAG 🇮🇳</button>
-                <button class="hacker-btn" onclick="triggerFX('strobe')" style="color: white; border-color: white;">WHITE STROBE</button>
+                <h3>🎛️ MASTER FX CONTROLLER</h3>
+                <p style="font-size: 12px; color: #888;">Open the DJ keyboard to control audience screens instantly in landscape mode.</p>
+                <button class="hacker-btn" style="width: 100%; background: var(--neon-green); color: black; font-size: 18px; padding: 15px;" onclick="openDJController()">OPEN DJ KEYBOARD</button>
             </div>
             
-            <!-- BOTTOM PANEL: SAVED ACTS DATABASE -->
+            <!-- BOTTOM PANEL: SAVED ACTS -->
             <div class="control-panel" style="grid-column: 1 / -1;">
-                <h3>[📁] SECURE DATABASE (30+ SLOTS)</h3>
-                <div class="act-list" id="savedActsList">
-                    <!-- Acts will populate here -->
-                    <p style="color: #666; text-align: center;">No performances saved yet.</p>
-                </div>
+                <h3>[📁] SECURE DATABASE</h3>
+                <div class="act-list" id="savedActsList"></div>
             </div>
 
+        </div>
+    </div>
+
+    <!-- 3. DJ LIVE CONTROLLER (THE KEYBOARD) -->
+    <div id="djController">
+        <div class="dj-header">
+            <h2 style="margin:0; font-size:18px;">🔴 LIVE DJ CONTROLS</h2>
+            <button class="hacker-btn btn-danger" onclick="closeDJController()" style="margin:0; padding: 5px 10px;">X CLOSE</button>
+        </div>
+
+        <!-- Live Preview Screen -->
+        <div class="preview-container">
+            <span style="font-size: 12px; color: #888; margin-bottom: 5px;">PARENTS SCREEN PREVIEW</span>
+            <div class="mini-screen" id="previewScreen">
+                <p>Audience Screen</p>
+            </div>
+        </div>
+
+        <!-- The Button Grid -->
+        <div class="dj-grid">
+            <button class="dj-btn c-black" onclick="triggerFX('solid', '#0b132b')">RESET DARK</button>
+            <button class="dj-btn c-red" onclick="triggerFX('solid', '#ff0000')">RED</button>
+            <button class="dj-btn c-blue" onclick="triggerFX('solid', '#0000ff')">BLUE</button>
+            <button class="dj-btn c-green" onclick="triggerFX('solid', '#00ff00')">GREEN</button>
+            
+            <button class="dj-btn c-gold" onclick="triggerFX('solid', '#f1c40f')">GOLD</button>
+            <button class="dj-btn c-purple" onclick="triggerFX('solid', '#8e44ad')">PURPLE</button>
+            <button class="dj-btn c-cyan" onclick="triggerFX('solid', '#00ffff')">CYAN</button>
+            <button class="dj-btn" style="background:#ff9a9e; color:black;" onclick="triggerFX('solid', '#ff9a9e')">PINK</button>
+
+            <button class="dj-btn c-blue" style="box-shadow: 0 0 15px blue;" onclick="triggerFX('pulse', '#0000ff')">BLUE PULSE</button>
+            <button class="dj-btn c-red" style="box-shadow: 0 0 15px red;" onclick="triggerFX('pulse', '#ff0000')">RED PULSE</button>
+            <button class="dj-btn c-tiranga" onclick="triggerFX('tiranga', '')">TIRANGA 🇮🇳</button>
+            <button class="dj-btn c-strobe" onclick="triggerFX('strobe', '')">STROBE ⚡</button>
         </div>
     </div>
 
@@ -235,7 +240,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // FIREBASE CONFIG - DONT CHANGE THIS
+        // FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
             authDomain: "jbps-voting-app-64e09.firebaseapp.com",
@@ -248,49 +253,44 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // ------------------ SECURITY SYSTEM ------------------
+        // Security
         function handleEnter(e) { if(e.key === 'Enter') checkAuth(); }
-        
         function checkAuth() {
-            const pwd = document.getElementById('pwdInput').value;
-            if(pwd === "7734") {
+            if(document.getElementById('pwdInput').value === "7734") {
                 document.getElementById('loginScreen').style.display = "none";
                 document.getElementById('adminPanel').style.display = "block";
-                loadSavedActs(); // Load data from Firebase once logged in
+                loadSavedActs();
             } else {
                 document.getElementById('errorMsg').style.display = "block";
-                document.getElementById('pwdInput').value = "";
             }
         }
 
-        // ------------------ IMAGE COMPRESSION TO BASE64 ------------------
+        // Image Base64
         function getBase64Image(file) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 if(!file) { resolve(""); return; }
                 const reader = new FileReader();
                 reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
                 reader.readAsDataURL(file);
             });
         }
 
-        // ------------------ CORE FUNCTIONALITY ------------------
+        // Save & Host Logic
         async function saveActToAdmin() {
             const no = document.getElementById('actNo').value;
             const name = document.getElementById('actName').value;
             const cls = document.getElementById('actClass').value;
+            const fx = JSON.parse(document.getElementById('actFx').value);
             const fileInput = document.getElementById('actPic').files[0];
 
             if(!no || !name) { alert("S.No and Name are required!"); return; }
 
             const base64Pic = await getBase64Image(fileInput);
+            const actData = { no, name, class: cls, pic: base64Pic, autoFx: fx };
             
-            const actData = { no: no, name: name, class: cls, pic: base64Pic };
-            
-            // Push to Firebase Saved List
             database.ref('admin_saved_acts/' + no).set(actData);
             
-            // Clear inputs
+            // Clear
             document.getElementById('actNo').value = "";
             document.getElementById('actName').value = "";
             document.getElementById('actClass').value = "";
@@ -298,82 +298,103 @@
         }
 
         async function hostDirectLive() {
-            const no = document.getElementById('actNo').value;
+            const no = document.getElementById('actNo').value || "-";
             const name = document.getElementById('actName').value;
             const cls = document.getElementById('actClass').value;
+            const fx = JSON.parse(document.getElementById('actFx').value);
             const fileInput = document.getElementById('actPic').files[0];
 
-            if(!name) { alert("Performance Name is required to host live!"); return; }
-
+            if(!name) { alert("Name required!"); return; }
             const base64Pic = await getBase64Image(fileInput);
-            const actData = { no: no || "-", name: name, class: cls, pic: base64Pic, status: "live" };
+            const actData = { no, name, class: cls, pic: base64Pic, status: "live", autoFx: fx };
 
-            // Save to DB and instantly push to Live
-            if(no) database.ref('admin_saved_acts/' + no).set(actData);
+            if(no !== "-") database.ref('admin_saved_acts/' + no).set(actData);
             makeActLive(actData);
         }
 
         function makeActLive(actData) {
             actData.status = "live";
             database.ref('current_act').set(actData);
-            document.getElementById('liveActDisplay').innerText = actData.name;
+            
+            // Trigger the auto-fx saved with this act
+            if(actData.autoFx) {
+                triggerFX(actData.autoFx.type, actData.autoFx.color);
+            }
         }
 
         function endCurrentAct() {
             database.ref('current_act').set({ name: "", status: "ended" });
-            document.getElementById('liveActDisplay').innerText = "OFFLINE";
+            triggerFX("solid", "#0b132b"); // Reset to dark
         }
 
-        function triggerFX(effectName) {
-            database.ref('audience_fx').set({ theme: effectName });
-        }
-
-        // ------------------ LOAD SAVED ACTS REALTIME ------------------
+        // Load Acts
         function loadSavedActs() {
             database.ref('admin_saved_acts').on('value', (snapshot) => {
                 const acts = snapshot.val();
                 const listDiv = document.getElementById('savedActsList');
                 listDiv.innerHTML = "";
+                if(!acts) return;
 
-                if(!acts) {
-                    listDiv.innerHTML = '<p style="color: #666; text-align: center;">No performances saved yet.</p>';
-                    return;
-                }
-
-                // Convert object to array and sort by S.No
                 Object.values(acts).sort((a,b) => a.no - b.no).forEach(act => {
-                    const picHtml = act.pic ? `<img src="${act.pic}" class="act-pic">` : `<div class="act-pic" style="background:#222; display:flex; align-items:center; justify-content:center; font-size:10px;">NO IMG</div>`;
-                    
-                    const itemHtml = `
+                    const picHtml = act.pic ? `<img src="${act.pic}" class="act-pic">` : `<div class="act-pic">NO IMG</div>`;
+                    listDiv.innerHTML += `
                         <div class="act-item">
                             <div style="display: flex; align-items: center; flex-grow: 1;">
-                                <span class="act-id">[${act.no}]</span>
-                                ${picHtml}
-                                <div>
-                                    <strong style="color: white; font-size: 18px;">${act.name}</strong><br>
-                                    <span style="color: #888;">Class: ${act.class}</span>
-                                </div>
+                                <span class="act-id">[${act.no}]</span> ${picHtml}
+                                <div><strong style="color: white; font-size: 18px;">${act.name}</strong><br>
+                                <span style="color: #888;">Class: ${act.class} | FX: ${act.autoFx ? act.autoFx.type : 'none'}</span></div>
                             </div>
-                            <div style="display: flex; gap: 10px;">
-                                <button class="hacker-btn" style="border-color: #f1c40f; color: #f1c40f;" onclick='makeActLive(${JSON.stringify(act).replace(/'/g, "&apos;")})'>HOST LIVE</button>
-                            </div>
+                            <button class="hacker-btn" style="border-color: #f1c40f; color: #f1c40f;" onclick='makeActLive(${JSON.stringify(act).replace(/'/g, "&apos;")})'>HOST LIVE</button>
                         </div>
                     `;
-                    listDiv.innerHTML += itemHtml;
                 });
             });
 
-            // Listen to Current Live status to update Admin UI
             database.ref('current_act').on('value', (snap) => {
                 const liveData = snap.val();
-                if(liveData && liveData.status === "live") {
-                    document.getElementById('liveActDisplay').innerText = liveData.name;
-                } else {
-                    document.getElementById('liveActDisplay').innerText = "OFFLINE";
-                }
+                document.getElementById('liveActDisplay').innerText = (liveData && liveData.status === "live") ? liveData.name : "OFFLINE";
             });
         }
+
+        // ================= DJ CONTROLLER LOGIC =================
+        function openDJController() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('djController').style.display = 'flex';
+        }
+
+        function closeDJController() {
+            document.getElementById('djController').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+        }
+
+        // Send FX command to Firebase
+        function triggerFX(type, color) {
+            database.ref('audience_fx').set({ type: type, color: color });
+        }
+
+        // Live Preview Listener
+        database.ref('audience_fx').on('value', (snap) => {
+            const fx = snap.val();
+            const preview = document.getElementById('previewScreen');
+            if(!fx) return;
+
+            // Reset animations
+            preview.style.animation = 'none';
+            
+            if(fx.type === 'solid') {
+                preview.style.background = fx.color;
+            } else if (fx.type === 'pulse') {
+                preview.style.background = fx.color;
+                // Add simple pulse logic via box-shadow for preview
+                preview.style.boxShadow = `inset 0 0 50px white`;
+                setTimeout(() => preview.style.boxShadow = 'none', 500);
+            } else if (fx.type === 'tiranga') {
+                preview.style.background = 'linear-gradient(to right, #ff9933, #ffffff, #138808)';
+            } else if (fx.type === 'strobe') {
+                preview.style.animation = 'flash 0.1s infinite';
+            }
+        });
     </script>
 </body>
-    </html>
-                        
+                </html>
+                
