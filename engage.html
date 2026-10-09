@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Audience Engagement - Ullas 2.0</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-bg: #0b132b;
+            --gold: #f1c40f;
+            --gold-light: #f6e58d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; 
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(11, 19, 43, 0.9), rgba(0, 0, 0, 0.95));
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            width: 85%;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(241, 196, 15, 0.1);
+            animation: slideDown 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-title {
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            color: #dcdde1;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-gold {
+            background: linear-gradient(90deg, #d4af37, #f1c40f);
+            color: black;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-gold:active { transform: scale(0.95); }
+
+        #mainScreen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            padding-top: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .top-logo {
+            width: 60px;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .ullas-text {
+            font-family: 'Yatra One', serif;
+            font-size: 40px;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 20px 0;
+        }
+
+        .live-section {
+            width: 90%;
+            border-top: 1px solid rgba(241, 196, 15, 0.4);
+            border-bottom: 1px solid rgba(241, 196, 15, 0.4);
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .live-title {
+            color: var(--gold);
+            font-size: 26px;
+            font-family: serif;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .live-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+            animation: pulseRed 1.5s infinite;
+        }
+
+        .current-performance {
+            font-size: 18px;
+            color: white;
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.4; 
+            transition: opacity 0.5s;
+        }
+
+        .interactive-area {
+            margin-top: 50px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        @keyframes slideDown {
+            0% { transform: translateY(-50px) scale(0.9); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes pulseRed {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="languageModal" class="modal-overlay">
+        <div class="glass-card">
+            <h2 class="modal-title">Choose Your Language</h2>
+            <div class="btn-group">
+                <button class="btn-gold" onclick="selectLanguage('en')">English</button>
+                <button class="btn-gold" onclick="selectLanguage('hi')" style="font-family: 'Yatra One', serif; font-size: 20px;">हिंदी</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimerModal" class="modal-overlay" style="display: none;">
+        <div class="glass-card">
+            <h2 class="modal-title" id="discTitle">Important Note</h2>
+            <p class="modal-text" id="discText">
+                Dear Parents, you are requested to click on the options during live shows to encourage our students and show your participation.
+            </p>
+            <button class="btn-gold" onclick="enterMainScreen()" id="discBtn">I Agree & Enter</button>
+        </div>
+    </div>
+
+    <div id="mainScreen">
+        <img src="logo.png" alt="JBS Logo" class="top-logo">
+        <h1 class="ullas-text">उल्लास 2.0</h1>
+
+        <div class="live-section">
+            <h2 class="live-title">Live Performances</h2>
+            <div class="live-badge">🔴 LIVE NOW</div>
+            <div class="current-performance" id="performanceName">
+                Waiting for Next Act...
+            </div>
+        </div>
+
+        <div class="interactive-area" id="lightShowArea">
+            <p style="color: #7f8fa6; font-size: 14px; text-align: center;" id="interactionStatus">Interactive elements will appear here during the performance.</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Setup -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
+            authDomain: "jbps-voting-app-64e09.firebaseapp.com",
+            databaseURL: "https://jbps-voting-app-64e09-default-rtdb.firebaseio.com",
+            projectId: "jbps-voting-app-64e09",
+            storageBucket: "jbps-voting-app-64e09.firebasestorage.app",
+            messagingSenderId: "21759156292",
+            appId: "1:21759156292:web:9387c446af3e5740efdc11"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const texts = {
+            en: {
+                title: "Welcome Parents",
+                body: "Dear Parents, you are requested to interact with the screen during live shows to encourage our students and illuminate the arena.",
+                btn: "Enter Show ✨"
+            },
+            hi: {
+                title: "अभिभावकों का स्वागत है",
+                body: "प्रिय अभिभावकों, आपसे अनुरोध है कि लाइव प्रदर्शन के दौरान छात्रों का उत्साह बढ़ाने और प्रांगण को रोशन करने के लिए स्क्रीन के विकल्पों का उपयोग करें।",
+                btn: "प्रवेश करें ✨"
+            }
+        };
+
+        function selectLanguage(lang) {
+            document.getElementById('languageModal').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('languageModal').style.display = 'none';
+                document.getElementById('discTitle').innerText = texts[lang].title;
+                document.getElementById('discText').innerText = texts[lang].body;
+                document.getElementById('discBtn').innerText = texts[lang].btn;
+                
+                document.getElementById('disclaimerModal').style.display = 'flex';
+                document.getElementById('disclaimerModal').style.opacity = '1';
+            }, 500);
+        }
+
+        function enterMainScreen() {
+            document.getElementById('disclaimerModal').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('disclaimerModal').style.display = 'none';
+                document.body.style.overflow = 'auto'; 
+                
+                const mainScreen = document.getElementById('mainScreen');
+                mainScreen.style.display = 'flex';
+            }, 500);
+        }
+
+        // Listens to the 'current_act' node in your Firebase DB
+        database.ref('current_act').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if(data && data.name) {
+                const perfElement = document.getElementById('performanceName');
+                perfElement.innerText = data.name;
+                perfElement.style.opacity = '1'; 
+            } else {
+                const perfElement = document.getElementById('performanceName');
+                perfElement.innerText = "Waiting for Next Act...";
+                perfElement.style.opacity = '0.4'; 
+            }
+        });
+
+    </script>
+</body>
+          </html>
+          
