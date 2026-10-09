@@ -3,151 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Control | JBPS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Firebase App & Database Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+    <title>ROOT ADMIN - Ullas 2.0</title>
     <style>
-        body { 
-            background: #020617; 
-            color: #e2e8f0; 
-            font-family: 'Poppins', sans-serif; 
-            padding: 20px; 
+        /* Hacker Theme CSS */
+        :root {
+            --neon-green: #0f0;
+            --dark-bg: #050505;
+            --panel-bg: #111;
+        }
+
+        body {
             margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace; /* Terminal Font */
         }
-        .header { 
-            color: #38bdf8; 
-            text-align: center; 
-            border-bottom: 2px solid #1e293b; 
-            padding-bottom: 15px; 
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
+
+        /* Login Screen */
+        #loginScreen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
-        .card { 
-            background: #0f172a; 
-            padding: 20px; 
-            border-radius: 12px; 
-            margin-bottom: 20px; 
-            border: 1px solid #1e293b;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+
+        .terminal-box {
+            border: 1px solid var(--neon-green);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            background: rgba(0,255,0,0.05);
         }
-        h3 { color: #94a3b8; font-size: 1.1rem; margin-bottom: 15px; margin-top: 0; }
-        input { 
-            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; 
-            border: 1px solid #334155; background: #1e293b; color: white; font-family: 'Poppins', sans-serif;
-            box-sizing: border-box;
+
+        .hacker-input {
+            background: black;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            margin: 10px 0;
+            width: 200px;
         }
-        input:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
-        button { 
-            width: 100%; padding: 15px; border: none; border-radius: 8px; 
-            font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.2s;
+
+        .hacker-btn {
+            background: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.2s;
+            margin: 5px;
         }
-        button:active { transform: scale(0.98); }
-        .btn-update { background: linear-gradient(45deg, #2563eb, #3b82f6); color: white; }
-        .btn-success { background: linear-gradient(45deg, #059669, #10b981); color: white; }
-        .btn-danger { background: linear-gradient(45deg, #dc2626, #ef4444); color: white; }
-        .stat-box { display: flex; justify-content: space-between; margin-bottom: 15px; }
-        .stat { 
-            text-align: center; background: #1e293b; padding: 15px 10px; width: 47%; 
-            border-radius: 8px; border: 1px solid #334155;
+
+        .hacker-btn:hover, .hacker-btn.active {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 10px var(--neon-green);
         }
-        .stat span { display: block; font-size: 2rem; color: #fbbf24; font-weight: 700; margin-top: 5px; }
+
+        .btn-danger { color: #f00; border-color: #f00; }
+        .btn-danger:hover { background: #f00; color: #000; box-shadow: 0 0 10px #f00; }
+
+        /* Main Admin Dashboard */
+        #adminPanel {
+            display: none;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            text-align: center;
+            font-size: 28px;
+            text-shadow: 0 0 10px var(--neon-green);
+            margin-bottom: 30px;
+            border-bottom: 1px dashed var(--neon-green);
+            padding-bottom: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .control-panel {
+            background: var(--panel-bg);
+            border: 1px solid #333;
+            padding: 20px;
+            border-top: 3px solid var(--neon-green);
+        }
+
+        .control-panel h3 { margin-top: 0; color: white; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        .input-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .input-group label { margin-bottom: 5px; font-size: 14px; }
+        .input-group input[type="text"], .input-group input[type="number"], .input-group input[type="file"] {
+            background: black;
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Saved Acts List */
+        .act-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .act-item {
+            background: #000;
+            border: 1px solid #333;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .act-details { flex-grow: 1; }
+        .act-id { font-weight: bold; color: var(--neon-green); margin-right: 10px; }
+        .act-pic { width: 50px; height: 50px; object-fit: cover; border: 1px solid #444; margin-right: 15px; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 12px;
+            margin-top: 5px;
+            background: #222;
+        }
+        .status-live { color: #f1c40f; border: 1px solid #f1c40f; }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="header">⚙️ MASTER CONTROL</div>
 
-    <!-- Section 1: Set Act -->
-    <div class="card">
-        <h3>1. Setup New Performance</h3>
-        <input type="text" id="actName" placeholder="Act Name (e.g., Solo Dance)">
-        <input type="text" id="actGroup" placeholder="Performer (e.g., By Rahul, 12-A)">
-        <button class="btn-update" onclick="updateAct()">🚀 Push to Live Feed</button>
-    </div>
-
-    <!-- Section 2: Live Tracking -->
-    <div class="card">
-        <h3>2. Live Voting Engine</h3>
-        <div class="stat-box">
-            <div class="stat">Total Votes <span id="totalVotes">0</span></div>
-            <div class="stat">Avg Rating <span id="avgRating">0.0</span></div>
+    <!-- SECURE LOGIN SCREEN -->
+    <div id="loginScreen">
+        <div class="terminal-box">
+            <h2>SYSTEM LOCKED</h2>
+            <p style="color: #666; font-size: 12px;">Hint: sukoon</p>
+            <input type="password" id="pwdInput" class="hacker-input" placeholder="Enter Passcode" onkeypress="handleEnter(event)">
+            <br><br>
+            <button class="hacker-btn" onclick="checkAuth()">[ INITIATE OVERRIDE ]</button>
+            <p id="errorMsg" style="color: red; display: none;">ACCESS DENIED</p>
         </div>
-        <button class="btn-success" onclick="showResults()">📊 Flash Results on Projector</button>
     </div>
 
-    <!-- Section 3: Reset -->
-    <div class="card" style="border-left: 4px solid #ef4444;">
-        <h3 style="color: #ef4444;">3. Danger Zone</h3>
-        <button class="btn-danger" onclick="resetVoting()">🗑️ Lock Voting & Reset for Next</button>
+    <!-- MAIN ADMIN DASHBOARD -->
+    <div id="adminPanel">
+        <h1 class="header-title">Welcome YUVI ❤️ 11/11</h1>
+        
+        <div class="grid-container">
+            
+            <!-- LEFT PANEL: ADD NEW ACT -->
+            <div class="control-panel">
+                <h3>[+] REGISTER NEW PERFORMANCE</h3>
+                
+                <div class="input-group">
+                    <label>S.No.</label>
+                    <input type="number" id="actNo" placeholder="e.g., 1">
+                </div>
+                <div class="input-group">
+                    <label>Performance Name</label>
+                    <input type="text" id="actName" placeholder="e.g., Group Dance - Patriotism">
+                </div>
+                <div class="input-group">
+                    <label>Class / Group</label>
+                    <input type="text" id="actClass" placeholder="e.g., Class 12-A">
+                </div>
+                <div class="input-group">
+                    <label>Custom Picture</label>
+                    <input type="file" id="actPic" accept="image/*">
+                    <small style="color:#666;">Will be converted to secure base64 string</small>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="hacker-btn" onclick="saveActToAdmin()" style="flex: 1;">SAVE IN ADMIN</button>
+                    <button class="hacker-btn" onclick="hostDirectLive()" style="flex: 1; border-color: #f1c40f; color: #f1c40f;">DIRECT HOST LIVE</button>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: MASTER FX CONTROLS & CURRENT STATE -->
+            <div class="control-panel">
+                <h3>[!] MASTER CONTROLLERS</h3>
+                
+                <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid #f1c40f; padding: 15px; margin-bottom: 20px;">
+                    <p style="margin: 0; color: #f1c40f;"><strong>CURRENT LIVE STATUS:</strong></p>
+                    <h2 id="liveActDisplay" style="color: white; margin: 10px 0;">OFFLINE</h2>
+                    <button class="hacker-btn btn-danger" onclick="endCurrentAct()">[ END CURRENT ACT ]</button>
+                </div>
+
+                <h3>AUDIENCE FX (SPECIAL EFFECTS)</h3>
+                <p style="font-size: 12px; color: #888;">Triggers immediate visual changes on all 2000+ audience devices.</p>
+                <button class="hacker-btn" onclick="triggerFX('normal')">NORMAL (RESET)</button>
+                <button class="hacker-btn" onclick="triggerFX('pulse')" style="color: #3498db; border-color: #3498db;">BLUE PULSE</button>
+                <button class="hacker-btn" onclick="triggerFX('tiranga')" style="color: #e67e22; border-color: #e67e22;">TIRANGA FLAG 🇮🇳</button>
+                <button class="hacker-btn" onclick="triggerFX('strobe')" style="color: white; border-color: white;">WHITE STROBE</button>
+            </div>
+            
+            <!-- BOTTOM PANEL: SAVED ACTS DATABASE -->
+            <div class="control-panel" style="grid-column: 1 / -1;">
+                <h3>[📁] SECURE DATABASE (30+ SLOTS)</h3>
+                <div class="act-list" id="savedActsList">
+                    <!-- Acts will populate here -->
+                    <p style="color: #666; text-align: center;">No performances saved yet.</p>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // Firebase Configuration
+        // FIREBASE CONFIG - DONT CHANGE THIS
         const firebaseConfig = {
-            databaseURL: "https://jbps-voting-app-64e09-default-rtdb.firebaseio.com/"
+            apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
+            authDomain: "jbps-voting-app-64e09.firebaseapp.com",
+            databaseURL: "https://jbps-voting-app-64e09-default-rtdb.firebaseio.com",
+            projectId: "jbps-voting-app-64e09",
+            storageBucket: "jbps-voting-app-64e09.firebasestorage.app",
+            messagingSenderId: "21759156292",
+            appId: "1:21759156292:web:9387c446af3e5740efdc11"
         };
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        const database = firebase.database();
 
-        function updateAct() {
-            let name = document.getElementById('actName').value;
-            let group = document.getElementById('actGroup').value;
-            if(!name) { alert("Act ka naam daal bhai!"); return; }
-
-            // Database mein current act save karo
-            db.ref('currentAct').set({
-                name: name,
-                group: group
-            });
-
-            // Purane votes clear karo naye act ke liye
-            db.ref('currentVotes').remove();
-
-            alert("Boom! '" + name + "' is now LIVE on all phones!");
-        }
-
-        // Real-time votes aur average calculate karna
-        db.ref('currentVotes').on('value', (snapshot) => {
-            let data = snapshot.val();
-            let totalVotes = 0;
-            let sum = 0;
-
-            if (data) {
-                let votesArray = Object.values(data);
-                totalVotes = votesArray.length;
-                sum = votesArray.reduce((a, b) => a + b, 0);
+        // ------------------ SECURITY SYSTEM ------------------
+        function handleEnter(e) { if(e.key === 'Enter') checkAuth(); }
+        
+        function checkAuth() {
+            const pwd = document.getElementById('pwdInput').value;
+            if(pwd === "7734") {
+                document.getElementById('loginScreen').style.display = "none";
+                document.getElementById('adminPanel').style.display = "block";
+                loadSavedActs(); // Load data from Firebase once logged in
+            } else {
+                document.getElementById('errorMsg').style.display = "block";
+                document.getElementById('pwdInput').value = "";
             }
-
-            let avg = totalVotes > 0 ? (sum / totalVotes).toFixed(1) : "0.0";
-
-            document.getElementById('totalVotes').innerText = totalVotes;
-            document.getElementById('avgRating').innerText = avg;
-        });
-
-        function showResults() {
-            // Projector screen ko signal bhejo result dikhane ka
-            db.ref('screenState').set({
-                action: 'showResult'
-            });
-            alert("Suspense flashed on projector screen!");
         }
 
-        function resetVoting() {
-            if(confirm("Lock voting for next act?")) {
-                db.ref('currentAct').set({
-                    name: "Waiting for next act...",
-                    group: ""
+        // ------------------ IMAGE COMPRESSION TO BASE64 ------------------
+        function getBase64Image(file) {
+            return new Promise((resolve, reject) => {
+                if(!file) { resolve(""); return; }
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ------------------ CORE FUNCTIONALITY ------------------
+        async function saveActToAdmin() {
+            const no = document.getElementById('actNo').value;
+            const name = document.getElementById('actName').value;
+            const cls = document.getElementById('actClass').value;
+            const fileInput = document.getElementById('actPic').files[0];
+
+            if(!no || !name) { alert("S.No and Name are required!"); return; }
+
+            const base64Pic = await getBase64Image(fileInput);
+            
+            const actData = { no: no, name: name, class: cls, pic: base64Pic };
+            
+            // Push to Firebase Saved List
+            database.ref('admin_saved_acts/' + no).set(actData);
+            
+            // Clear inputs
+            document.getElementById('actNo').value = "";
+            document.getElementById('actName').value = "";
+            document.getElementById('actClass').value = "";
+            document.getElementById('actPic').value = "";
+        }
+
+        async function hostDirectLive() {
+            const no = document.getElementById('actNo').value;
+            const name = document.getElementById('actName').value;
+            const cls = document.getElementById('actClass').value;
+            const fileInput = document.getElementById('actPic').files[0];
+
+            if(!name) { alert("Performance Name is required to host live!"); return; }
+
+            const base64Pic = await getBase64Image(fileInput);
+            const actData = { no: no || "-", name: name, class: cls, pic: base64Pic, status: "live" };
+
+            // Save to DB and instantly push to Live
+            if(no) database.ref('admin_saved_acts/' + no).set(actData);
+            makeActLive(actData);
+        }
+
+        function makeActLive(actData) {
+            actData.status = "live";
+            database.ref('current_act').set(actData);
+            document.getElementById('liveActDisplay').innerText = actData.name;
+        }
+
+        function endCurrentAct() {
+            database.ref('current_act').set({ name: "", status: "ended" });
+            document.getElementById('liveActDisplay').innerText = "OFFLINE";
+        }
+
+        function triggerFX(effectName) {
+            database.ref('audience_fx').set({ theme: effectName });
+        }
+
+        // ------------------ LOAD SAVED ACTS REALTIME ------------------
+        function loadSavedActs() {
+            database.ref('admin_saved_acts').on('value', (snapshot) => {
+                const acts = snapshot.val();
+                const listDiv = document.getElementById('savedActsList');
+                listDiv.innerHTML = "";
+
+                if(!acts) {
+                    listDiv.innerHTML = '<p style="color: #666; text-align: center;">No performances saved yet.</p>';
+                    return;
+                }
+
+                // Convert object to array and sort by S.No
+                Object.values(acts).sort((a,b) => a.no - b.no).forEach(act => {
+                    const picHtml = act.pic ? `<img src="${act.pic}" class="act-pic">` : `<div class="act-pic" style="background:#222; display:flex; align-items:center; justify-content:center; font-size:10px;">NO IMG</div>`;
+                    
+                    const itemHtml = `
+                        <div class="act-item">
+                            <div style="display: flex; align-items: center; flex-grow: 1;">
+                                <span class="act-id">[${act.no}]</span>
+                                ${picHtml}
+                                <div>
+                                    <strong style="color: white; font-size: 18px;">${act.name}</strong><br>
+                                    <span style="color: #888;">Class: ${act.class}</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="hacker-btn" style="border-color: #f1c40f; color: #f1c40f;" onclick='makeActLive(${JSON.stringify(act).replace(/'/g, "&apos;")})'>HOST LIVE</button>
+                            </div>
+                        </div>
+                    `;
+                    listDiv.innerHTML += itemHtml;
                 });
-                db.ref('currentVotes').remove();
-                db.ref('screenState').set({ action: 'waiting' });
-                alert("Reset done successfully!");
-            }
+            });
+
+            // Listen to Current Live status to update Admin UI
+            database.ref('current_act').on('value', (snap) => {
+                const liveData = snap.val();
+                if(liveData && liveData.status === "live") {
+                    document.getElementById('liveActDisplay').innerText = liveData.name;
+                } else {
+                    document.getElementById('liveActDisplay').innerText = "OFFLINE";
+                }
+            });
         }
     </script>
 </body>
-          </html>
-          
+    </html>
+                        
