@@ -5,196 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Audience Engagement - Ullas 2.0</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Yatra+One&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --dark-bg: #0b132b;
             --gold: #f1c40f;
+            --live-red: #ff4757;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; 
+            margin: 0; padding: 0; background-color: var(--dark-bg);
+            color: white; font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Modals & Overlays */
+        /* --- MODALS (Language & Disclaimer) --- */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(11, 19, 43, 0.9), rgba(0, 0, 0, 0.95));
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.5s ease;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, rgba(11, 19, 43, 0.95), rgba(0, 0, 0, 0.98));
+            backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 0.5s ease;
         }
-
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(241, 196, 15, 0.3);
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            width: 85%;
-            max-width: 400px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(241, 196, 15, 0.3);
+            border-radius: 20px; padding: 40px 30px; text-align: center; width: 85%; max-width: 400px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(241, 196, 15, 0.1);
         }
-
-        .modal-title {
-            color: var(--gold);
-            font-size: 22px;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .modal-text {
-            font-size: 15px;
-            color: #dcdde1;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        .modal-title { color: var(--gold); font-size: 22px; margin-bottom: 25px; font-weight: 600; }
+        .modal-text { font-size: 15px; color: #dcdde1; line-height: 1.6; margin-bottom: 30px; }
         .btn-gold {
-            background: linear-gradient(90deg, #d4af37, #f1c40f);
-            color: black;
-            border: none;
-            padding: 15px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
-            transition: transform 0.2s;
+            background: linear-gradient(90deg, #d4af37, #f1c40f); color: black; border: none;
+            padding: 15px 20px; font-size: 16px; font-weight: bold; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4); width: 100%; margin-bottom: 15px;
         }
 
-        .btn-gold:active { transform: scale(0.95); }
-
-        /* Main Screen Elements */
+        /* --- MAIN SCREEN --- */
         #mainScreen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100vh;
-            padding-top: 30px;
-            opacity: 0;
+            display: none; flex-direction: column; align-items: center; width: 100%; padding: 20px 0 50px 0;
             animation: fadeIn 1s ease forwards;
         }
 
         .header-title {
-            color: var(--gold);
-            font-size: 28px;
-            font-family: serif;
-            font-weight: bold;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(241, 196, 15, 0.3);
-            padding-bottom: 10px;
-            width: 90%;
-            text-align: center;
+            color: var(--gold); font-size: 28px; font-family: serif; font-weight: bold; margin: 10px 0 20px 0;
+            border-bottom: 1px solid rgba(241, 196, 15, 0.3); padding-bottom: 10px; width: 90%; text-align: center;
         }
 
-        /* --- CLASSY LIVE BOX CSS --- */
-        .live-card-container {
-            position: relative;
-            width: 90%;
-            max-width: 450px;
-            display: none; /* Will be shown via JS when an act is live */
-            margin-top: 20px;
+        .section-title {
+            width: 90%; max-width: 450px; font-size: 14px; color: #888; text-transform: uppercase;
+            letter-spacing: 2px; margin: 20px 0 10px 0; border-left: 3px solid #888; padding-left: 10px;
         }
 
+        /* --- LIST CONTAINERS --- */
+        .list-container { width: 90%; max-width: 450px; display: flex; flex-direction: column; gap: 12px; }
+
+        /* General Act Card */
+        .act-card {
+            background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 15px;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .act-pic {
+            width: 55px; height: 55px; border-radius: 50%; object-fit: cover; background: #222;
+        }
+        .act-details { flex-grow: 1; }
+        .act-name { font-size: 16px; font-weight: 600; margin: 0; color: white; }
+        .act-class { font-size: 12px; color: #bdc3c7; margin: 3px 0 0 0; }
+        .act-no { font-size: 14px; font-weight: bold; color: var(--gold); margin-bottom: 2px; }
+
+        /* LIVE ACT CARD (Highlighted) */
+        .live-card {
+            border: 2px solid var(--live-red); box-shadow: 0 10px 30px rgba(255, 71, 87, 0.2);
+            position: relative; background: rgba(255, 71, 87, 0.05);
+        }
         .live-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: #ff4757;
-            color: white;
-            padding: 5px 15px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
-            z-index: 10;
+            position: absolute; top: -12px; right: 20px; background: var(--live-red); color: white;
+            padding: 4px 12px; font-size: 11px; font-weight: bold; border-radius: 20px;
             animation: pulseRed 1.5s infinite;
         }
-
-        .classy-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(241, 196, 15, 0.5); /* Gold outline */
-            border-radius: 25px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .profile-pic {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            object-fit: cover;
-            background: #222;
-        }
-
-        .perf-details {
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        .perf-name {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-            color: white;
-        }
-
-        .perf-class {
-            font-size: 13px;
-            color: #bdc3c7;
-            margin: 5px 0 0 0;
-        }
-
         .action-btn {
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.2s;
+            background: var(--gold); color: black; border: none; padding: 10px 20px;
+            border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; text-decoration: none;
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
         }
 
-        .action-btn:active { transform: scale(0.95); }
+        /* UPCOMING CARD */
+        .upcoming-card { border: 1px solid rgba(255,255,255,0.1); }
 
-        .waiting-text {
-            color: #7f8fa6;
-            font-size: 16px;
-            text-align: center;
-            margin-top: 50px;
-            font-style: italic;
+        /* ENDED CARD */
+        .ended-card {
+            border: 1px solid rgba(255,255,255,0.05); opacity: 0.5; filter: grayscale(100%);
         }
+
+        .empty-msg { text-align: center; color: #666; font-size: 14px; font-style: italic; }
 
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes pulseRed {
@@ -206,14 +108,12 @@
 </head>
 <body>
 
-    <!-- Language Selection Modal -->
+    <!-- Language Modal -->
     <div id="languageModal" class="modal-overlay">
         <div class="glass-card">
             <h2 class="modal-title">Choose Your Language</h2>
-            <div class="btn-group">
-                <button class="btn-gold" onclick="selectLanguage('en')">English</button>
-                <button class="btn-gold" onclick="selectLanguage('hi')" style="font-family: 'Yatra One', serif; font-size: 20px;">हिंदी</button>
-            </div>
+            <button class="btn-gold" onclick="selectLanguage('en')">English</button>
+            <button class="btn-gold" onclick="selectLanguage('hi')" style="font-family: 'Yatra One', serif; font-size: 20px;">हिंदी</button>
         </div>
     </div>
 
@@ -228,38 +128,35 @@
         </div>
     </div>
 
-    <!-- Main Screen -->
+    <!-- MAIN SCREEN (Schedule) -->
     <div id="mainScreen">
-        <h2 class="header-title">Live Performances</h2>
+        <h2 class="header-title">Ullas 2.0 Schedule</h2>
 
-        <!-- CLASSY BOX (Hidden until Admin triggers a live act) -->
-        <div class="live-card-container" id="liveContainer">
-            <div class="live-badge">LIVE NOW</div>
-            <div class="classy-box">
-                <!-- Circular Image -->
-                <img src="" alt="Performance Image" class="profile-pic" id="livePic">
-                
-                <!-- Text Details -->
-                <div class="perf-details">
-                    <h3 class="perf-name" id="liveName">Act Name</h3>
-                    <p class="perf-class" id="liveClass">Class Details</p>
-                </div>
-                
-                <!-- Button redirecting to show.html -->
-                <button class="action-btn" onclick="window.location.href='show.html'">Join ✨</button>
-            </div>
+        <!-- 1. LIVE NOW SECTION -->
+        <div class="section-title" style="color: var(--live-red); border-color: var(--live-red);">🔴 Live Now</div>
+        <div class="list-container" id="liveSection">
+            <p class="empty-msg">Waiting for the event to begin...</p>
         </div>
 
-        <!-- Waiting Message (Shows when no act is live) -->
-        <p class="waiting-text" id="waitingMsg">Waiting for the next act to begin...</p>
+        <!-- 2. UPCOMING SECTION -->
+        <div class="section-title" style="color: var(--gold); border-color: var(--gold);">⏳ Coming Soon</div>
+        <div class="list-container" id="upcomingSection">
+            <p class="empty-msg">Loading upcoming acts...</p>
+        </div>
 
+        <!-- 3. ENDED SECTION -->
+        <div class="section-title">🏁 Past Performances</div>
+        <div class="list-container" id="endedSection">
+            <p class="empty-msg">No acts have ended yet.</p>
+        </div>
     </div>
 
-    <!-- Firebase SDK Setup -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        // BHAII YAHAN APNI FIREBASE CONFIG DAAL LENA!
         const firebaseConfig = {
             apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
             authDomain: "jbps-voting-app-64e09.firebaseapp.com",
@@ -269,21 +166,13 @@
             messagingSenderId: "21759156292",
             appId: "1:21759156292:web:9387c446af3e5740efdc11"
         };
-        
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+        // --- Modals Logic ---
         const texts = {
-            en: {
-                title: "Welcome Parents",
-                body: "Dear Parents, you are requested to interact with the screen during live shows to encourage our students and illuminate the arena.",
-                btn: "Enter Show ✨"
-            },
-            hi: {
-                title: "अभिभावकों का स्वागत है",
-                body: "प्रिय अभिभावकों, आपसे अनुरोध है कि लाइव प्रदर्शन के दौरान छात्रों का उत्साह बढ़ाने और प्रांगण को रोशन करने के लिए स्क्रीन के विकल्पों का उपयोग करें।",
-                btn: "प्रवेश करें ✨"
-            }
+            en: { title: "Welcome Parents", body: "Please click the 'Join' button during live performances to sync your phone's flashlight and screen with the arena's DJ lighting.", btn: "Enter Schedule ✨" },
+            hi: { title: "अभिभावकों का स्वागत है", body: "कृपया लाइव प्रदर्शन के दौरान 'Join' बटन दबाएं ताकि आपका फोन सीधे एरीना की डीजे लाइटिंग के साथ सिंक हो सके।", btn: "प्रवेश करें ✨" }
         };
 
         function selectLanguage(lang) {
@@ -303,43 +192,87 @@
             document.getElementById('disclaimerModal').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('disclaimerModal').style.display = 'none';
-                document.body.style.overflow = 'auto'; 
                 document.getElementById('mainScreen').style.display = 'flex';
             }, 500);
         }
 
-        // Firebase Listener for updating the Classy Box
-        database.ref('current_act').on('value', (snapshot) => {
+        // --- FETCH & BUILD UI FROM FIREBASE ---
+        database.ref('admin_saved_acts').on('value', (snapshot) => {
             const data = snapshot.val();
-            const liveContainer = document.getElementById('liveContainer');
-            const waitingMsg = document.getElementById('waitingMsg');
+            
+            const liveSec = document.getElementById('liveSection');
+            const upcomingSec = document.getElementById('upcomingSection');
+            const endedSec = document.getElementById('endedSection');
 
-            if(data && data.status === "live") {
-                // Populate the box with Admin's data
-                document.getElementById('liveName').innerText = data.name;
-                document.getElementById('liveClass').innerText = data.class || "";
-                
-                // Set image (fallback to a transparent/blank if no custom pic)
-                const picElement = document.getElementById('livePic');
-                if(data.pic) {
-                    picElement.src = data.pic;
-                    picElement.style.display = 'block';
-                } else {
-                    picElement.src = ""; // Clear if empty
-                    picElement.style.display = 'none'; // Hide empty circle
-                }
-                
-                // Switch UI from "Waiting" to "Live Box"
-                liveContainer.style.display = 'block';
-                waitingMsg.style.display = 'none';
-            } else {
-                // Hide box, show waiting message
-                liveContainer.style.display = 'none';
-                waitingMsg.style.display = 'block';
+            liveSec.innerHTML = ""; upcomingSec.innerHTML = ""; endedSec.innerHTML = "";
+
+            if (!data) {
+                liveSec.innerHTML = '<p class="empty-msg">No acts live yet.</p>';
+                upcomingSec.innerHTML = '<p class="empty-msg">Schedule empty.</p>';
+                endedSec.innerHTML = '<p class="empty-msg">Nothing ended yet.</p>';
+                return;
             }
+
+            // Convert to array and sort by S.No
+            const actsArray = Object.values(data).sort((a, b) => parseInt(a.no) - parseInt(b.no));
+            
+            let hasLive = false, hasUpcoming = false, hasEnded = false;
+
+            actsArray.forEach(act => {
+                // Handle Image fallback
+                let imgSrc = act.mediaData && act.mediaType === 'image' ? act.mediaData : 'logo.png'; 
+                // Fallback to logo.png if no image is uploaded
+                if(!act.mediaData) imgSrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="; // Blank transparent fallback if logo.png not found
+
+                if (act.status === 'live') {
+                    hasLive = true;
+                    liveSec.innerHTML += `
+                        <div class="act-card live-card">
+                            <div class="live-badge">LIVE NOW</div>
+                            <img src="${imgSrc}" class="act-pic">
+                            <div class="act-details">
+                                <div class="act-no">Chapter #${act.no}</div>
+                                <h3 class="act-name">${act.name}</h3>
+                                <p class="act-class">${act.class}</p>
+                            </div>
+                            <button class="action-btn" onclick="window.location.href='show.html'">Join ✨</button>
+                        </div>
+                    `;
+                } 
+                else if (act.status === 'upcoming') {
+                    hasUpcoming = true;
+                    upcomingSec.innerHTML += `
+                        <div class="act-card upcoming-card">
+                            <img src="${imgSrc}" class="act-pic">
+                            <div class="act-details">
+                                <div class="act-no">Chapter #${act.no}</div>
+                                <h3 class="act-name">${act.name}</h3>
+                                <p class="act-class">${act.class}</p>
+                            </div>
+                        </div>
+                    `;
+                } 
+                else if (act.status === 'ended') {
+                    hasEnded = true;
+                    endedSec.innerHTML += `
+                        <div class="act-card ended-card">
+                            <img src="${imgSrc}" class="act-pic" style="filter: grayscale(100%);">
+                            <div class="act-details">
+                                <div class="act-no">Chapter #${act.no}</div>
+                                <h3 class="act-name">${act.name}</h3>
+                                <p class="act-class">${act.class}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            // Show empty messages if categories have no acts
+            if(!hasLive) liveSec.innerHTML = '<p class="empty-msg">No performance is currently Live.</p>';
+            if(!hasUpcoming) upcomingSec.innerHTML = '<p class="empty-msg">No upcoming acts.</p>';
+            if(!hasEnded) endedSec.innerHTML = '<p class="empty-msg">No past acts yet.</p>';
         });
 
     </script>
 </body>
-    </html>
-    
+</html>
