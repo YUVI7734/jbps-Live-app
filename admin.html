@@ -3,271 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROOT ADMIN - Ullas 2.0</title>
+    <title>PRO STUDIO - Ullas 2.0</title>
     <style>
-        /* Sleek Hacker & DJ Theme */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+        
         :root {
-            --neon: #00ffcc;
-            --dark-bg: #07070a;
-            --panel-bg: #121218;
-            --gold: #f1c40f;
+            --bg-color: #05050a;
+            --panel-bg: rgba(15, 15, 25, 0.8);
+            --primary: #00e5ff;
+            --accent: #ff0055;
+            --gold: #ffcc00;
+            --text-main: #e0e0e0;
         }
 
         body {
-            margin: 0; padding: 0;
-            background-color: var(--dark-bg);
-            color: var(--neon);
-            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 20px; background-color: var(--bg-color); color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            background-image: radial-gradient(circle at top right, #1a0033 0%, #05050a 60%);
+            background-attachment: fixed;
         }
 
-        /* --- SECURE LOGIN --- */
+        /* --- LOGIN SCREEN --- */
         #loginScreen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
         }
-        .terminal-box {
-            border: 1px solid var(--neon); padding: 40px; text-align: center;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); background: rgba(0,255,204,0.05);
-            border-radius: 10px;
-        }
-        .hacker-input {
-            background: black; border: 1px solid var(--neon); color: var(--neon);
-            padding: 12px; font-family: inherit; font-size: 18px;
-            text-align: center; outline: none; margin: 15px 0; width: 220px; border-radius: 5px;
-        }
-        .hacker-btn {
-            background: transparent; color: var(--neon); border: 1px solid var(--neon);
-            padding: 12px 25px; font-family: inherit; font-weight: bold; border-radius: 5px;
-            cursor: pointer; text-transform: uppercase; transition: 0.3s; margin: 5px;
-        }
-        .hacker-btn:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
-        .btn-danger { color: #ff3366; border-color: #ff3366; }
-        .btn-danger:hover { background: #ff3366; color: #fff; box-shadow: 0 0 15px #ff3366; }
-        .btn-gold { color: var(--gold); border-color: var(--gold); }
-        .btn-gold:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
-
-        /* --- MAIN DASHBOARD --- */
-        #adminPanel { display: none; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .header-title {
-            text-align: center; font-size: 32px; text-shadow: 0 0 15px var(--neon);
-            margin-bottom: 25px; border-bottom: 1px dashed var(--neon); padding-bottom: 15px;
-            letter-spacing: 2px;
-        }
-        
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        .control-panel {
-            background: var(--panel-bg); border: 1px solid #222; padding: 25px; 
-            border-top: 3px solid var(--neon); border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .control-panel h3 { margin-top: 0; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        
-        .input-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        .input-group label { margin-bottom: 5px; font-size: 14px; color: #aaa; }
-        .input-group input, .input-group select {
-            background: #000; border: 1px solid #444; color: white; padding: 12px; 
-            font-family: inherit; border-radius: 4px;
-        }
-
-        /* --- SAVED ACTS (CHAPTER VIEW) --- */
-        .act-list { max-height: 500px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .act-item {
-            background: #000; border: 1px solid #333; padding: 15px; border-radius: 6px;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: 0.2s; cursor: pointer;
-        }
-        .act-item:hover { border-color: var(--neon); background: rgba(0,255,204,0.05); }
-        .act-id { font-weight: bold; color: var(--neon); font-size: 20px; margin-right: 15px; }
-        
-        /* --- ACT STUDIO MODAL --- */
-        #actStudio {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center;
+        .login-box {
+            border: 1px solid var(--primary); padding: 40px; text-align: center;
+            background: rgba(0, 229, 255, 0.05); border-radius: 15px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
             backdrop-filter: blur(10px);
         }
-        .studio-box {
-            background: var(--panel-bg); border: 1px solid var(--neon); width: 90%; max-width: 600px;
-            padding: 30px; border-radius: 10px; box-shadow: 0 0 30px rgba(0,255,204,0.2);
+        .pro-input {
+            background: rgba(0,0,0,0.7); border: 1px solid #333; color: var(--primary);
+            padding: 12px 15px; font-family: inherit; font-size: 16px; font-weight: bold;
+            outline: none; margin: 10px 0; width: 100%; border-radius: 6px; box-sizing: border-box;
+            transition: 0.3s;
         }
+        .pro-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,229,255,0.3); }
+        
+        .pro-btn {
+            background: linear-gradient(45deg, #00b3cc, var(--primary)); color: #000;
+            border: none; padding: 12px 25px; font-family: 'Orbitron', sans-serif; font-weight: bold;
+            border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            letter-spacing: 1px; width: 100%; margin-top: 10px;
+        }
+        .pro-btn:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+        
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: #000; }
+        .btn-dj { background: linear-gradient(45deg, #ff9900, var(--gold)); color: #000; margin-bottom: 20px;}
+        .btn-dj:hover { box-shadow: 0 0 20px var(--gold); }
 
-        /* --- DJ LIVE CONTROLLER --- */
-        #djController {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #050505; z-index: 10000; padding: 15px; box-sizing: border-box;
-            flex-direction: column;
+        /* --- DASHBOARD --- */
+        #adminPanel { display: none; max-width: 1200px; margin: 0 auto; }
+        .header {
+            text-align: center; margin-bottom: 30px; border-bottom: 1px solid rgba(0,229,255,0.3); padding-bottom: 20px;
         }
-        @media screen and (orientation: portrait) {
-            #djController::before {
-                content: "ROTATE PHONE TO LANDSCAPE 🔄 FOR DJ CONTROLS";
-                display: block; background: #ff3366; color: white; text-align: center;
-                padding: 15px; font-weight: bold; font-family: sans-serif; margin-bottom: 15px;
-            }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 38px; color: #fff; margin: 0;
+            text-shadow: 0 0 20px var(--primary); font-weight: 900; letter-spacing: 2px;
         }
-        .dj-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; flex-grow: 1; margin-top: 10px;}
-        .dj-btn {
-            border: none; border-radius: 8px; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); font-size: 16px; transition: 0.1s;
-        }
-        .dj-btn:active { transform: scale(0.92); }
-        .c-red { background: #ff0000; color: white; }
-        .c-blue { background: #0000ff; color: white; }
-        .c-green { background: #00ff00; color: black; }
-        .c-tiranga { background: linear-gradient(90deg, #ff9933, #ffffff, #138808); color: black; }
-        .c-strobe { background: white; color: black; animation: flash 0.1s infinite; }
-        @keyframes flash { 0%, 100% { background: white; } 50% { background: black; color: white; } }
+        
+        .grid { display: grid; grid-template-columns: 350px 1fr; gap: 25px; }
+        @media(max-width: 800px) { .grid { grid-template-columns: 1fr; } }
 
-        /* LIVE PREVIEW SCREEN */
-        .preview-container {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 15px;
+        .panel {
+            background: var(--panel-bg); border: 1px solid #222; padding: 25px;
+            border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            backdrop-filter: blur(15px); border-top: 4px solid var(--primary);
         }
-        .mini-screen {
-            width: 200px; height: 100px; border: 3px solid #555; border-radius: 10px;
-            background: black; position: relative; overflow: hidden; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .mini-screen p { margin: 0; color: white; font-family: sans-serif; font-weight: bold; text-shadow: 0 0 5px black; }
+        .panel h2 { margin: 0 0 20px 0; font-size: 20px; color: #fff; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; font-family: 'Orbitron', sans-serif; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 14px; color: var(--primary); font-weight: bold; }
+        textarea.pro-input { resize: vertical; height: 80px; }
 
+        /* --- LIST --- */
+        .act-list { display: flex; flex-direction: column; gap: 15px; max-height: 650px; overflow-y: auto; padding-right: 5px;}
+        .act-list::-webkit-scrollbar { width: 5px; }
+        .act-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+
+        .act-card {
+            background: rgba(0,0,0,0.6); border: 1px solid #333; border-radius: 8px;
+            padding: 15px; display: grid; grid-template-columns: 60px 1fr auto; gap: 15px;
+            align-items: center; transition: 0.3s;
+        }
+        .act-card:hover { border-color: var(--primary); background: rgba(0,229,255,0.05); }
+        .act-no { font-family: 'Orbitron', sans-serif; font-size: 28px; color: var(--primary); font-weight: bold; text-align: center; border-right: 1px solid #333; padding-right: 15px;}
+        .act-info h3 { margin: 0 0 5px 0; font-size: 20px; color: #fff; }
+        .act-info p { margin: 0 0 5px 0; font-size: 14px; color: #aaa; }
+        .act-notes { font-size: 13px; color: var(--gold); background: rgba(255,204,0,0.1); padding: 5px; border-radius: 4px; border-left: 2px solid var(--gold); }
+        
+        .act-controls { display: flex; flex-direction: column; gap: 8px; }
+        .status-select {
+            background: #111; color: #fff; border: 1px solid #555; padding: 6px;
+            border-radius: 4px; font-family: inherit; font-weight: bold; cursor: pointer;
+        }
+        .status-select.live { border-color: var(--accent); color: var(--accent); }
+        .btn-sm { background: #222; color: #fff; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: bold; transition: 0.2s;}
+        .btn-sm:hover { background: #444; }
     </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
     <div id="loginScreen">
-        <div class="terminal-box">
-            <h2>SYSTEM LOCKED</h2>
-            <p style="color: #666; font-size: 12px; font-family: sans-serif;">Hint: sukoon</p>
-            <input type="password" id="pwdInput" class="hacker-input" placeholder="Passcode" onkeypress="handleEnter(event)">
-            <br>
-            <button class="hacker-btn" onclick="checkAuth()">[ INITIATE OVERRIDE ]</button>
-            <p id="errorMsg" style="color: #ff3366; display: none; margin-top: 15px;">ACCESS DENIED</p>
+        <div class="login-box">
+            <h2 style="font-family:'Orbitron', sans-serif; margin-top:0;">SECURITY CHECK</h2>
+            <input type="password" id="pwdInput" class="pro-input" placeholder="Enter Passcode" style="text-align: center;">
+            <button class="pro-btn" onclick="checkAuth()">Access System</button>
+            <p id="errorMsg" style="color: var(--accent); display: none; margin-bottom: 0;">Access Denied</p>
         </div>
     </div>
 
-    <!-- 2. MAIN DASHBOARD -->
     <div id="adminPanel">
-        <h1 class="header-title">Welcome YUVI ❤️ 11/11</h1>
-        
-        <div class="grid-container">
-            
-            <!-- ADD ACT FORM -->
-            <div class="control-panel">
-                <h3>[+] REGISTER CHAPTER / ACT</h3>
-                <div class="input-group">
-                    <label>S.No.</label>
-                    <input type="number" id="actNo" placeholder="e.g., 1">
-                </div>
-                <div class="input-group">
-                    <label>Performance Name</label>
-                    <input type="text" id="actName" placeholder="e.g., Lamp Lighting">
-                </div>
-                <div class="input-group">
-                    <label>Class / Group</label>
-                    <input type="text" id="actClass" placeholder="e.g., Class 12-A">
-                </div>
-                <div class="input-group">
-                    <label>Profile/Display Pic (Visible in Waiting Room)</label>
-                    <input type="file" id="actPic" accept="image/*">
-                </div>
+        <div class="header">
+            <h1>Welcome YUVI ❤️ 11/11</h1>
+        </div>
 
-                <button class="hacker-btn" style="width: 100%; margin-top: 10px;" onclick="saveActToAdmin()">SAVE TO DATABASE</button>
+        <button class="pro-btn btn-dj" onclick="window.location.href='admin1.html'">🎛️ LAUNCH LIVE DJ CONTROLLER (ADMIN 1) 🎛️</button>
+
+        <div class="grid">
+            <!-- STUDIO FORM -->
+            <div class="panel">
+                <h2 id="formTitle">Register Act</h2>
+                <input type="hidden" id="editMode" value="false">
+                
+                <div class="form-group">
+                    <label>S.No / ID</label>
+                    <input type="number" id="actNo" class="pro-input" placeholder="e.g., 1">
+                </div>
+                <div class="form-group">
+                    <label>Act Name</label>
+                    <input type="text" id="actName" class="pro-input" placeholder="e.g., Opening Dance">
+                </div>
+                <div class="form-group">
+                    <label>Class/Group</label>
+                    <input type="text" id="actClass" class="pro-input" placeholder="e.g., 12-A">
+                </div>
+                <div class="form-group">
+                    <label>Media (Image/Video) *Keep size small</label>
+                    <input type="file" id="actMedia" class="pro-input" accept="image/*,video/mp4" style="padding: 9px;">
+                </div>
+                <div class="form-group">
+                    <label>Director's Notes</label>
+                    <textarea id="actNotes" class="pro-input" placeholder="Cue notes, lighting plan..."></textarea>
+                </div>
+                
+                <button class="pro-btn" id="saveBtn" onclick="saveAct()">Save to Admin</button>
+                <button class="pro-btn btn-outline" id="cancelBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
             </div>
 
-            <!-- MASTER CONTROLS -->
-            <div class="control-panel">
-                <h3>[!] LIVE BROADCAST STATUS</h3>
-                <div style="background: rgba(241, 196, 15, 0.05); border: 1px solid var(--gold); padding: 20px; text-align: center; margin-bottom: 25px; border-radius: 8px;">
-                    <p style="margin: 0 0 5px 0; color: #888;">CURRENTLY LIVE:</p>
-                    <h2 id="liveActDisplay" style="color: var(--gold); margin: 0 0 15px 0; text-transform: uppercase;">OFFLINE</h2>
-                    <button class="hacker-btn btn-danger" onclick="endCurrentAct()">[ CUT FEED / END ACT ]</button>
-                </div>
-
-                <h3>🎛️ MANUAL DJ OVERRIDE</h3>
-                <p style="font-size: 13px; color: #888;">Open the landscape keyboard to control audience screens directly.</p>
-                <button class="hacker-btn" style="width: 100%; font-size: 16px; padding: 15px;" onclick="openDJController()">LAUNCH DJ KEYBOARD</button>
-            </div>
-            
-            <!-- SAVED ACTS LIST -->
-            <div class="control-panel" style="grid-column: 1 / -1;">
-                <h3>[📁] CHAPTERS & PERFORMANCES (Click Act to Configure & Host)</h3>
+            <!-- SAVED PERFORMANCES -->
+            <div class="panel">
+                <h2>Database & Live Status Controller</h2>
                 <div class="act-list" id="savedActsList">
-                    <p style="color: #666; text-align: center;">Database empty.</p>
+                    <p style="text-align: center; color: #666;">No performances saved yet.</p>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- 3. ACT STUDIO (Modal to configure specific effects) -->
-    <div id="actStudio">
-        <div class="studio-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
-                <h2 style="margin: 0; color: #fff;" id="studioActName">Act Name</h2>
-                <button class="hacker-btn btn-danger" style="padding: 5px 10px;" onclick="closeActStudio()">X</button>
-            </div>
-            
-            <!-- Hidden input -->
-            <input type="hidden" id="studioActNo">
-
-            <div class="input-group">
-                <label style="color: var(--neon);">Show Type (Audience Screen Effect)</label>
-                <select id="studioFxType">
-                    <option value="solid_black">Dark / Offline (Default)</option>
-                    <option value="pulse_blue">Relaxing Blue Pulse</option>
-                    <option value="flash_strobe">Aggressive White Strobe</option>
-                    <option value="tiranga">Tiranga Flag 🇮🇳</option>
-                    <option value="custom_image">Custom Background Image</option>
-                </select>
-            </div>
-
-            <!-- Custom Image Upload -->
-            <div class="input-group" id="studioImageUploadGroup" style="display: none;">
-                <label style="color: var(--neon);">Upload Fullscreen AI Image</label>
-                <input type="file" id="studioBgImage" accept="image/*">
-            </div>
-
-            <div style="display: flex; gap: 15px; margin-top: 30px;">
-                <button class="hacker-btn" style="flex: 1;" onclick="saveActStudioConfig()">SAVE CONFIG</button>
-                <button class="hacker-btn btn-gold" style="flex: 1;" onclick="hostStudioActLive()">HOST LIVE NOW ✨</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 4. DJ LIVE CONTROLLER -->
-    <div id="djController">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px;">
-            <h2 style="margin:0; font-family: sans-serif; color: #fff;">🔴 DJ LIVE LAUNCHPAD</h2>
-            <button class="hacker-btn btn-danger" onclick="closeDJController()">EXIT TO ADMIN</button>
-        </div>
-
-        <!-- LIVE TESTING PREVIEW -->
-        <div class="preview-container">
-            <span style="font-size: 12px; color: #888; margin-bottom: 5px;">LIVE TESTING PREVIEW (Audience Screen)</span>
-            <div class="mini-screen" id="previewScreen">
-                <p>Audience</p>
-            </div>
-        </div>
-
-        <div class="dj-grid">
-            <button class="dj-btn" style="background: #111; color: #fff; border: 1px solid #444;" onclick="triggerManualFX('solid', '#000')">RESET DARK</button>
-            <button class="dj-btn c-red" onclick="triggerManualFX('solid', '#ff0000')">SOLID RED</button>
-            <button class="dj-btn c-blue" onclick="triggerManualFX('solid', '#0000ff')">SOLID BLUE</button>
-            <button class="dj-btn c-green" onclick="triggerManualFX('solid', '#00ff00')">SOLID GREEN</button>
-            
-            <button class="dj-btn" style="background: #111; color: #00ffcc; border: 1px solid #00ffcc;" onclick="triggerManualFX('pulse', '#00ffcc')">NEON PULSE</button>
-            <button class="dj-btn c-blue" style="box-shadow: 0 0 20px blue;" onclick="triggerManualFX('pulse', '#0000ff')">BLUE PULSE</button>
-            <button class="dj-btn c-tiranga" onclick="triggerManualFX('tiranga', '')">TIRANGA 🇮🇳</button>
-            <button class="dj-btn c-strobe" onclick="triggerManualFX('strobe', '')">WHITE STROBE ⚡</button>
-        </div>
-    </div>
-
-    <!-- Firebase SDK Setup -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
     <script>
-        // YAHAN APNI FIREBASE CONFIG DAAL DE BHAII
+        // FIREBASE CONFIG - DAAL LENA
         const firebaseConfig = {
             apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
             authDomain: "jbps-voting-app-64e09.firebaseapp.com",
@@ -279,188 +178,142 @@
         };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+        let loadedActs = {};
 
-        let currentSavedActs = {}; 
-
-        // --- AUTH ---
-        function handleEnter(e) { if(e.key === 'Enter') checkAuth(); }
+        // Login
+        document.getElementById('pwdInput').addEventListener('keypress', function(e) { if(e.key === 'Enter') checkAuth(); });
         function checkAuth() {
             if(document.getElementById('pwdInput').value === "7734") {
                 document.getElementById('loginScreen').style.display = "none";
                 document.getElementById('adminPanel').style.display = "block";
-                loadActsFromDB();
+                loadActs();
             } else {
                 document.getElementById('errorMsg').style.display = "block";
             }
         }
 
-        // --- BASE64 CONVERTER ---
-        function getBase64Image(file) {
+        // File to Base64
+        function getBase64Media(file) {
             return new Promise((resolve) => {
-                if(!file) { resolve(""); return; }
+                if(!file) { resolve({ data: "", type: "" }); return; }
                 const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
+                reader.onload = () => resolve({ data: reader.result, type: file.type.includes('video') ? 'video' : 'image' });
                 reader.readAsDataURL(file);
             });
         }
 
-        // --- SAVE ACT (Initial Add) ---
-        async function saveActToAdmin() {
+        // Save / Update
+        async function saveAct() {
             const no = document.getElementById('actNo').value;
             const name = document.getElementById('actName').value;
             const cls = document.getElementById('actClass').value;
-            const fileInput = document.getElementById('actPic').files[0];
+            const notes = document.getElementById('actNotes').value;
+            const fileInput = document.getElementById('actMedia').files[0];
+            const isEdit = document.getElementById('editMode').value === "true";
 
             if(!no || !name) { alert("S.No and Name are required!"); return; }
 
-            const base64Pic = await getBase64Image(fileInput);
-            
+            let mediaData = { data: "", type: "" };
+            if(fileInput) {
+                mediaData = await getBase64Media(fileInput);
+            } else if (isEdit && loadedActs[no]) {
+                // Keep existing media if editing without new upload
+                mediaData = { data: loadedActs[no].mediaData, type: loadedActs[no].mediaType };
+            }
+
+            const status = (isEdit && loadedActs[no]) ? loadedActs[no].status : "upcoming";
+
             const actData = { 
-                no: no, name: name, class: cls, pic: base64Pic,
-                fxType: "solid_black", customBg: "" 
+                no, name, class: cls, notes, status,
+                mediaData: mediaData.data, mediaType: mediaData.type 
             };
-            
+
             database.ref('admin_saved_acts/' + no).set(actData);
             
-            document.getElementById('actNo').value = "";
-            document.getElementById('actName').value = "";
-            document.getElementById('actClass').value = "";
-            document.getElementById('actPic').value = "";
+            resetForm();
         }
 
-        // --- LOAD ACTS TO UI ---
-        function loadActsFromDB() {
-            database.ref('admin_saved_acts').on('value', (snapshot) => {
-                currentSavedActs = snapshot.val() || {};
-                const listDiv = document.getElementById('savedActsList');
-                listDiv.innerHTML = "";
+        function resetForm() {
+            document.getElementById('actNo').value = "";
+            document.getElementById('actNo').readOnly = false;
+            document.getElementById('actName').value = "";
+            document.getElementById('actClass').value = "";
+            document.getElementById('actMedia').value = "";
+            document.getElementById('actNotes').value = "";
+            document.getElementById('editMode').value = "false";
+            document.getElementById('formTitle').innerText = "Register Act";
+            document.getElementById('saveBtn').innerText = "Save to Admin";
+            document.getElementById('cancelBtn').style.display = "none";
+        }
 
-                if(Object.keys(currentSavedActs).length === 0) {
-                    listDiv.innerHTML = '<p style="color: #666; text-align: center;">Database empty.</p>';
-                    return;
+        function editAct(no) {
+            const act = loadedActs[no];
+            document.getElementById('actNo').value = act.no;
+            document.getElementById('actNo').readOnly = true; // Prevent changing ID
+            document.getElementById('actName').value = act.name;
+            document.getElementById('actClass').value = act.class;
+            document.getElementById('actNotes').value = act.notes || "";
+            document.getElementById('editMode').value = "true";
+            
+            document.getElementById('formTitle').innerText = "Edit Act #" + no;
+            document.getElementById('saveBtn').innerText = "Update Act";
+            document.getElementById('cancelBtn').style.display = "inline-block";
+            window.scrollTo(0,0);
+        }
+
+        // Live Dropdown Change
+        function changeStatus(no, newStatus) {
+            database.ref('admin_saved_acts/' + no + '/status').set(newStatus);
+            if(newStatus === 'live') {
+                database.ref('current_act').set(loadedActs[no]);
+                // Automatically reset DJ to normal view when a new act goes live
+                database.ref('audience_fx').set({ type: 'normal' });
+            } else if (newStatus === 'ended') {
+                database.ref('current_act').once('value', s => {
+                    if(s.val() && s.val().no === no) {
+                        database.ref('current_act/status').set('ended');
+                        database.ref('audience_fx').set({ type: 'solid', color: '#000' });
+                    }
+                });
+            }
+        }
+
+        function loadActs() {
+            database.ref('admin_saved_acts').on('value', (snapshot) => {
+                loadedActs = snapshot.val() || {};
+                const list = document.getElementById('savedActsList');
+                list.innerHTML = "";
+                
+                if(Object.keys(loadedActs).length === 0) {
+                    list.innerHTML = "<p style='color:#666; text-align:center;'>No performances saved yet.</p>"; return;
                 }
 
-                Object.values(currentSavedActs).sort((a,b) => a.no - b.no).forEach(act => {
-                    const fxBadge = act.fxType !== "solid_black" ? `<span style="background: #222; color: var(--gold); padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-left: 10px;">FX: ${act.fxType}</span>` : "";
+                Object.values(loadedActs).sort((a,b) => a.no - b.no).forEach(act => {
+                    const statusColor = act.status === 'live' ? 'var(--accent)' : (act.status === 'ended' ? '#666' : '#fff');
+                    const notesHtml = act.notes ? `<div class="act-notes">📝 ${act.notes}</div>` : '';
                     
-                    listDiv.innerHTML += `
-                        <div class="act-item" onclick="openActStudio('${act.no}')">
-                            <div style="display: flex; align-items: center;">
-                                <div class="act-id">${act.no}</div>
-                                <div>
-                                    <div style="color: white; font-size: 18px; font-weight: bold; font-family: sans-serif;">${act.name}</div>
-                                    <div style="color: #888; font-size: 14px; margin-top: 4px;">Class: ${act.class} ${fxBadge}</div>
-                                </div>
+                    list.innerHTML += `
+                        <div class="act-card">
+                            <div class="act-no">${act.no}</div>
+                            <div class="act-info">
+                                <h3>${act.name}</h3>
+                                <p>Class: ${act.class} | Media: ${act.mediaType ? act.mediaType.toUpperCase() : 'None'}</p>
+                                ${notesHtml}
                             </div>
-                            <div style="color: var(--neon); font-size: 24px;">⚙️</div>
+                            <div class="act-controls">
+                                <select class="status-select ${act.status === 'live' ? 'live' : ''}" onchange="changeStatus('${act.no}', this.value)">
+                                    <option value="upcoming" ${act.status === 'upcoming' ? 'selected' : ''}>⏳ Coming Soon</option>
+                                    <option value="live" ${act.status === 'live' ? 'selected' : ''}>🔴 LIVE NOW</option>
+                                    <option value="ended" ${act.status === 'ended' ? 'selected' : ''}>🏁 Ended</option>
+                                </select>
+                                <button class="btn-sm" onclick="editAct('${act.no}')">✏️ Edit</button>
+                            </div>
                         </div>
                     `;
                 });
             });
-
-            database.ref('current_act').on('value', (snap) => {
-                const liveData = snap.val();
-                document.getElementById('liveActDisplay').innerText = (liveData && liveData.status === "live") ? liveData.name : "OFFLINE";
-            });
         }
-
-            // --- ACT STUDIO LOGIC (Modal) ---
-        // Ensure this function is globally accessible
-        window.openActStudio = function(actNo) {
-            const act = currentSavedActs[actNo];
-            if(!act) return;
-            document.getElementById('studioActNo').value = act.no;
-            document.getElementById('studioActName').innerText = act.name;
-            document.getElementById('studioFxType').value = act.fxType || "solid_black";
-            
-            toggleImageUpload(); 
-            document.getElementById('actStudio').style.display = "flex";
-        };
-
-        function closeActStudio() {
-            document.getElementById('actStudio').style.display = "none";
-        }
-
-        document.getElementById('studioFxType').addEventListener('change', toggleImageUpload);
-        function toggleImageUpload() {
-            const fxType = document.getElementById('studioFxType').value;
-            document.getElementById('studioImageUploadGroup').style.display = (fxType === "custom_image") ? "flex" : "none";
-        }
-
-        async function saveActStudioConfig() {
-            const no = document.getElementById('studioActNo').value;
-            const fxType = document.getElementById('studioFxType').value;
-            let base64Bg = currentSavedActs[no].customBg || ""; 
-
-            if(fxType === "custom_image") {
-                const fileInput = document.getElementById('studioBgImage').files[0];
-                if(fileInput) base64Bg = await getBase64Image(fileInput);
-            }
-
-            database.ref(`admin_saved_acts/${no}/fxType`).set(fxType);
-            database.ref(`admin_saved_acts/${no}/customBg`).set(base64Bg);
-            alert("Configuration Saved!");
-            closeActStudio();
-        }
-
-        function hostStudioActLive() {
-            const no = document.getElementById('studioActNo').value;
-            const act = currentSavedActs[no];
-            
-            database.ref('current_act').set({
-                name: act.name, class: act.class, pic: act.pic, status: "live"
-            });
-
-            let payload = { type: 'solid', color: '#000' }; 
-            if (act.fxType === "pulse_blue") payload = { type: "pulse", color: "#0000ff" };
-            else if (act.fxType === "flash_strobe") payload = { type: "strobe", color: "" };
-            else if (act.fxType === "tiranga") payload = { type: "tiranga", color: "" };
-            else if (act.fxType === "custom_image") payload = { type: "image", src: act.customBg };
-
-            database.ref('audience_fx').set(payload);
-            closeActStudio();
-        }
-
-        function endCurrentAct() {
-            database.ref('current_act').set({ name: "", status: "ended" });
-            database.ref('audience_fx').set({ type: "solid", color: "#050505" });
-        }
-
-        // --- DJ CONTROLLER & LIVE PREVIEW ---
-        window.openDJController = function() {
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('djController').style.display = 'flex';
-        };
-
-        window.closeDJController = function() {
-            document.getElementById('djController').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-        };
-
-        window.triggerManualFX = function(type, color) {
-            database.ref('audience_fx').set({ type: type, color: color });
-        };
-
-        // Live Preview Updater
-        database.ref('audience_fx').on('value', (snap) => {
-            const fx = snap.val();
-            const preview = document.getElementById('previewScreen');
-            if(!fx || !preview) return;
-
-            preview.style.animation = 'none';
-            
-            if(fx.type === 'solid') {
-                preview.style.background = fx.color;
-            } else if (fx.type === 'pulse') {
-                preview.style.background = fx.color;
-                preview.style.boxShadow = `inset 0 0 50px white`;
-                setTimeout(() => preview.style.boxShadow = 'none', 500);
-            } else if (fx.type === 'tiranga') {
-                preview.style.background = 'linear-gradient(to right, #ff9933, #ffffff, #138808)';
-            } else if (fx.type === 'strobe') {
-                preview.style.animation = 'flash 0.1s infinite';
-            }
-        });
     </script>
 </body>
-</html>
+                </html>
+                
