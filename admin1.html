@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ LAUNCHPAD - Ullas 2.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600&display=swap');
+        
+        body {
+            margin: 0; padding: 15px; background-color: #030305; color: #fff;
+            font-family: 'Rajdhani', sans-serif; box-sizing: border-box;
+            background-image: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+        @media screen and (orientation: portrait) {
+            body::before { content: "⚠️ ROTATE TO LANDSCAPE FOR PRO DJ DECK"; display: block; background: #ff0055; color: white; text-align: center; padding: 15px; font-family: 'Orbitron'; margin-bottom: 15px; border-radius: 8px; font-size: 14px;}
+        }
+
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #222; padding-bottom: 10px; margin-bottom: 15px; }
+        .header h2 { margin: 0; font-family: 'Orbitron', sans-serif; color: #00e5ff; letter-spacing: 2px;}
+        .btn-back { background: transparent; border: 1px solid #ff0055; color: #ff0055; padding: 8px 15px; border-radius: 4px; font-family: inherit; font-size: 16px; cursor: pointer; }
+        
+        /* Preview */
+        .preview-box {
+            width: 100%; height: 80px; border: 2px dashed #444; border-radius: 10px; background: #000;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: inset 0 0 20px #000;
+        }
+        .preview-box p { margin: 0; font-family: 'Orbitron', sans-serif; color: #fff; opacity: 0.5; font-size: 20px;}
+
+        /* Grids */
+        .section-title { color: #888; font-family: 'Orbitron', sans-serif; font-size: 14px; margin: 0 0 10px 0; letter-spacing: 1px;}
+        .grid-main { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px;}
+        .grid-colors { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 25px;}
+
+        /* Buttons */
+        .dj-btn {
+            border: none; border-radius: 8px; font-family: 'Orbitron', sans-serif; font-size: 12px;
+            cursor: pointer; padding: 20px 5px; transition: 0.1s; text-transform: uppercase;
+            box-shadow: inset 0 2px 10px rgba(255,255,255,0.2), 0 5px 15px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+        }
+        .dj-btn:active { transform: scale(0.92); box-shadow: none; }
+        .icon { font-size: 20px; }
+
+        /* Master Utility */
+        .c-normal { background: linear-gradient(135deg, #333, #111); color: #fff; border: 1px solid #555; }
+        .c-black { background: #000; color: #fff; border: 1px solid #333; }
+        
+        /* Logo Integration Buttons */
+        .c-jbs-glow { background: url('logo.png') center/contain no-repeat, radial-gradient(circle, #ffcc00 0%, #332200 100%); color: transparent; border: 1px solid #ffcc00; }
+        .c-jbs-strobe { background: url('logo.png') center/contain no-repeat, #ffcc00; color: transparent; animation: jbsFlash 0.1s infinite; border: 1px solid #ffcc00; }
+
+        /* Solids */
+        .s-red { background: #ff0033; color: #fff; }
+        .s-blue { background: #0066ff; color: #fff; }
+        .s-green { background: #00e600; color: #000; }
+        .s-gold { background: #ffcc00; color: #000; }
+        .s-purple { background: #b300ff; color: #fff; }
+        .s-cyan { background: #00e5ff; color: #000; }
+        .s-white { background: #ffffff; color: #000; }
+
+        /* Strobes */
+        .st-btn { background: #111; border: 2px solid; }
+        .st-red { border-color: #ff0033; color: #ff0033; }
+        .st-blue { border-color: #0066ff; color: #0066ff; }
+        .st-green { border-color: #00e600; color: #00e600; }
+        .st-gold { border-color: #ffcc00; color: #ffcc00; }
+        .st-purple { border-color: #b300ff; color: #b300ff; }
+        .st-cyan { border-color: #00e5ff; color: #00e5ff; }
+        .st-white { border-color: #ffffff; color: #ffffff; }
+
+        @keyframes flash { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(0); } }
+        
+        /* New Strobe Animation with Logo */
+        @keyframes jbsFlash {
+            0%, 100% { background: url('logo.png') center/contain no-repeat, #ffcc00; }
+            50% { background: url('logo.png') center/contain no-repeat, #000; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h2>🔴 DJ LAUNCHPAD</h2>
+        <button class="btn-back" onclick="window.location.href='admin.html'">Exit to Admin</button>
+    </div>
+
+    <div class="preview-box" id="previewScreen">
+        <p>AUDIENCE PREVIEW</p>
+    </div>
+
+    <!-- MASTER CONTROLS -->
+    <h4 class="section-title">Master Overrides</h4>
+    <div class="grid-main">
+        <button class="dj-btn c-normal" onclick="triggerFX('normal', '')">
+            <span class="icon">🖼️</span>NORMAL (ACT MEDIA)
+        </button>
+        <button class="dj-btn c-black" onclick="triggerFX('solid', '#000000')">
+            <span class="icon">⬛</span>BLACK SCREEN
+        </button>
+        <button class="dj-btn c-jbs-glow" onclick="triggerFX('jbs_logo', '')">
+            <span class="icon" style="color: #000; text-shadow: 0 0 5px #fff;">✨</span>
+        </button>
+        <button class="dj-btn c-jbs-strobe" onclick="triggerFX('jbs_strobe', '')">
+            <span class="icon" style="color: #000; text-shadow: 0 0 5px #fff;">⚡</span>
+        </button>
+    </div>
+
+    <!-- SOLID COLORS -->
+    <h4 class="section-title">Solid Colors (Atmosphere)</h4>
+    <div class="grid-colors">
+        <button class="dj-btn s-red" onclick="triggerFX('solid', '#ff0033')">RED</button>
+        <button class="dj-btn s-blue" onclick="triggerFX('solid', '#0066ff')">BLUE</button>
+        <button class="dj-btn s-green" onclick="triggerFX('solid', '#00e600')">GREEN</button>
+        <button class="dj-btn s-gold" onclick="triggerFX('solid', '#ffcc00')">GOLD</button>
+        <button class="dj-btn s-purple" onclick="triggerFX('solid', '#b300ff')">PURPLE</button>
+        <button class="dj-btn s-cyan" onclick="triggerFX('solid', '#00e5ff')">CYAN</button>
+        <button class="dj-btn s-white" onclick="triggerFX('solid', '#ffffff')">WHITE</button>
+    </div>
+
+    <!-- STROBE COLORS -->
+    <h4 class="section-title">Strobe Lights (High Energy)</h4>
+    <div class="grid-colors">
+        <button class="dj-btn st-btn st-red" onclick="triggerFX('strobe', '#ff0033')">STR RED</button>
+        <button class="dj-btn st-btn st-blue" onclick="triggerFX('strobe', '#0066ff')">STR BLUE</button>
+        <button class="dj-btn st-btn st-green" onclick="triggerFX('strobe', '#00e600')">STR GRN</button>
+        <button class="dj-btn st-btn st-gold" onclick="triggerFX('strobe', '#ffcc00')">STR GOLD</button>
+        <button class="dj-btn st-btn st-purple" onclick="triggerFX('strobe', '#b300ff')">STR PURP</button>
+        <button class="dj-btn st-btn st-cyan" onclick="triggerFX('strobe', '#00e5ff')">STR CYAN</button>
+        <button class="dj-btn st-btn st-white" onclick="triggerFX('strobe', '#ffffff')">STR WHT</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
+            authDomain: "jbps-voting-app-64e09.firebaseapp.com",
+            databaseURL: "https://jbps-voting-app-64e09-default-rtdb.firebaseio.com",
+            projectId: "jbps-voting-app-64e09",
+            storageBucket: "jbps-voting-app-64e09.firebasestorage.app",
+            messagingSenderId: "21759156292",
+            appId: "1:21759156292:web:9387c446af3e5740efdc11"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function triggerFX(type, color) {
+            database.ref('audience_fx').set({ type: type, color: color });
+        }
+
+        // Live Preview
+        database.ref('audience_fx').on('value', (snap) => {
+            const fx = snap.val();
+            const preview = document.getElementById('previewScreen');
+            if(!fx) return;
+            
+            preview.style.animation = 'none';
+            
+            if(fx.type === 'normal') {
+                preview.style.background = '#222';
+                preview.innerHTML = '<p style="color:#00e5ff;">ACT MEDIA / CAMERA</p>';
+            } else if (fx.type === 'solid') {
+                preview.style.background = fx.color;
+                preview.innerHTML = '';
+            } else if (fx.type === 'strobe') {
+                preview.style.background = fx.color;
+                preview.style.animation = 'flash 0.08s infinite';
+                preview.innerHTML = '';
+            } else if (fx.type === 'jbs_logo') {
+                preview.style.background = 'url("logo.png") center/contain no-repeat, radial-gradient(circle, #ffcc00 0%, #332200 100%)';
+                preview.innerHTML = '';
+            } else if (fx.type === 'jbs_strobe') {
+                preview.style.background = 'url("logo.png") center/contain no-repeat, #ffcc00';
+                preview.style.animation = 'jbsFlash 0.1s infinite';
+                preview.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+      </html>
+      
