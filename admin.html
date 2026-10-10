@@ -5,123 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROOT ADMIN - Ullas 2.0</title>
     <style>
-        /* Hacker Theme CSS */
+        /* Sleek Hacker & DJ Theme */
         :root {
-            --neon-green: #0f0;
-            --dark-bg: #050505;
-            --panel-bg: #111;
+            --neon: #00ffcc;
+            --dark-bg: #07070a;
+            --panel-bg: #121218;
+            --gold: #f1c40f;
         }
 
         body {
             margin: 0; padding: 0;
             background-color: var(--dark-bg);
-            color: var(--neon-green);
+            color: var(--neon);
             font-family: 'Courier New', Courier, monospace;
         }
 
-        /* SECURE LOGIN */
+        /* --- SECURE LOGIN --- */
         #loginScreen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: black; display: flex; flex-direction: column;
+            background: #000; display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 9999;
         }
         .terminal-box {
-            border: 1px solid var(--neon-green); padding: 40px; text-align: center;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2); background: rgba(0,255,0,0.05);
+            border: 1px solid var(--neon); padding: 40px; text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2); background: rgba(0,255,204,0.05);
+            border-radius: 10px;
         }
         .hacker-input {
-            background: black; border: 1px solid var(--neon-green); color: var(--neon-green);
-            padding: 10px; font-family: 'Courier New', monospace; font-size: 18px;
-            text-align: center; outline: none; margin: 10px 0; width: 200px;
+            background: black; border: 1px solid var(--neon); color: var(--neon);
+            padding: 12px; font-family: inherit; font-size: 18px;
+            text-align: center; outline: none; margin: 15px 0; width: 220px; border-radius: 5px;
         }
         .hacker-btn {
-            background: transparent; color: var(--neon-green); border: 1px solid var(--neon-green);
-            padding: 10px 20px; font-family: 'Courier New', monospace; font-weight: bold;
-            cursor: pointer; text-transform: uppercase; transition: 0.2s; margin: 5px;
+            background: transparent; color: var(--neon); border: 1px solid var(--neon);
+            padding: 12px 25px; font-family: inherit; font-weight: bold; border-radius: 5px;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s; margin: 5px;
         }
-        .hacker-btn:hover { background: var(--neon-green); color: black; box-shadow: 0 0 10px var(--neon-green); }
-        .btn-danger { color: #f00; border-color: #f00; }
-        .btn-danger:hover { background: #f00; color: #000; box-shadow: 0 0 10px #f00; }
+        .hacker-btn:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
+        .btn-danger { color: #ff3366; border-color: #ff3366; }
+        .btn-danger:hover { background: #ff3366; color: #fff; box-shadow: 0 0 15px #ff3366; }
+        .btn-gold { color: var(--gold); border-color: var(--gold); }
+        .btn-gold:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
 
-        /* MAIN DASHBOARD */
-        #adminPanel { display: none; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        /* --- MAIN DASHBOARD --- */
+        #adminPanel { display: none; padding: 20px; max-width: 1200px; margin: 0 auto; }
         .header-title {
-            text-align: center; font-size: 28px; text-shadow: 0 0 10px var(--neon-green);
-            margin-bottom: 30px; border-bottom: 1px dashed var(--neon-green); padding-bottom: 10px;
+            text-align: center; font-size: 32px; text-shadow: 0 0 15px var(--neon);
+            margin-bottom: 25px; border-bottom: 1px dashed var(--neon); padding-bottom: 15px;
+            letter-spacing: 2px;
         }
+        
         .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
         .control-panel {
-            background: var(--panel-bg); border: 1px solid #333; padding: 20px; border-top: 3px solid var(--neon-green);
+            background: var(--panel-bg); border: 1px solid #222; padding: 25px; 
+            border-top: 3px solid var(--neon); border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        .control-panel h3 { margin-top: 0; color: white; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .control-panel h3 { margin-top: 0; color: #fff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
         .input-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        .input-group label { margin-bottom: 5px; font-size: 14px; }
+        .input-group label { margin-bottom: 5px; font-size: 14px; color: #aaa; }
         .input-group input, .input-group select {
-            background: black; border: 1px solid #444; color: white; padding: 10px; font-family: 'Courier New', monospace;
+            background: #000; border: 1px solid #444; color: white; padding: 12px; 
+            font-family: inherit; border-radius: 4px;
         }
 
-        /* ACT LIST */
-        .act-list { max-height: 400px; overflow-y: auto; }
-        .act-item { background: #000; border: 1px solid #333; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .act-id { font-weight: bold; color: var(--neon-green); margin-right: 10px; }
-        .act-pic { width: 50px; height: 50px; object-fit: cover; border: 1px solid #444; margin-right: 15px; }
+        /* --- SAVED ACTS (CHAPTER VIEW) --- */
+        .act-list { max-height: 500px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .act-item {
+            background: #000; border: 1px solid #333; padding: 15px; border-radius: 6px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.2s; cursor: pointer;
+        }
+        .act-item:hover { border-color: var(--neon); background: rgba(0,255,204,0.05); }
+        .act-id { font-weight: bold; color: var(--neon); font-size: 20px; margin-right: 15px; }
+        
+        /* --- ACT STUDIO MODAL --- */
+        #actStudio {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .studio-box {
+            background: var(--panel-bg); border: 1px solid var(--neon); width: 90%; max-width: 600px;
+            padding: 30px; border-radius: 10px; box-shadow: 0 0 30px rgba(0,255,204,0.2);
+        }
 
-        /* =========================================================
-           DJ LIVE CONTROLLER (THE KEYBOARD)
-           ========================================================= */
+        /* --- DJ LIVE CONTROLLER --- */
         #djController {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #050505; z-index: 10000; padding: 10px; box-sizing: border-box;
+            background: #050505; z-index: 10000; padding: 15px; box-sizing: border-box;
             flex-direction: column;
         }
-        
-        /* Landscape Warning */
         @media screen and (orientation: portrait) {
             #djController::before {
-                content: "ROTATE PHONE TO LANDSCAPE 🔄 FOR BEST DJ EXPERIENCE";
-                display: block; background: #f00; color: white; text-align: center;
-                padding: 10px; font-weight: bold; width: 100%; box-sizing: border-box; margin-bottom: 10px;
+                content: "ROTATE PHONE TO LANDSCAPE 🔄 FOR DJ CONTROLS";
+                display: block; background: #ff3366; color: white; text-align: center;
+                padding: 15px; font-weight: bold; font-family: sans-serif; margin-bottom: 15px;
             }
         }
-
-        .dj-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
-        
-        /* Live Preview Screen (Mini Phone) */
-        .preview-container {
-            display: flex; flex-direction: column; align-items: center; margin: 0 auto 20px auto;
-        }
-        .mini-screen {
-            width: 250px; height: 120px; border: 3px solid #555; border-radius: 10px;
-            background: black; position: relative; overflow: hidden; transition: 0.3s;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .mini-screen p { margin: 0; color: white; font-family: sans-serif; font-weight: bold; text-shadow: 0 0 5px black; z-index: 2; }
-
-        /* The Keyboard Grid */
-        .dj-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-grow: 1;
-        }
+        .dj-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; flex-grow: 1; margin-top: 10px;}
         .dj-btn {
-            border: none; border-radius: 5px; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-            font-size: 14px; transition: transform 0.1s;
+            border: none; border-radius: 8px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); font-size: 16px; transition: 0.1s;
         }
-        .dj-btn:active { transform: scale(0.95); }
-        
-        /* Color Classes for DJ Keyboard */
+        .dj-btn:active { transform: scale(0.92); }
         .c-red { background: #ff0000; color: white; }
         .c-blue { background: #0000ff; color: white; }
         .c-green { background: #00ff00; color: black; }
-        .c-gold { background: #f1c40f; color: black; }
-        .c-purple { background: #8e44ad; color: white; }
-        .c-cyan { background: #00ffff; color: black; }
-        .c-black { background: #111; color: white; border: 1px solid #444; }
-        .c-tiranga { background: linear-gradient(90deg, #ff9933, #ffffff, #138808); color: black; text-shadow: 0 0 2px white; }
-        .c-strobe { background: white; color: black; animation: flash 0.2s infinite; }
-        
-        @keyframes flash { 0% { background: white; } 50% { background: black; color: white; } 100% { background: white; } }
-        
-        @media(max-width: 768px) { .grid-container { grid-template-columns: 1fr; } }
+        .c-tiranga { background: linear-gradient(90deg, #ff9933, #ffffff, #138808); color: black; }
+        .c-strobe { background: white; color: black; animation: flash 0.1s infinite; }
+        @keyframes flash { 0%, 100% { background: white; } 50% { background: black; color: white; } }
+
+        /* LIVE PREVIEW SCREEN */
+        .preview-container {
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 15px;
+        }
+        .mini-screen {
+            width: 200px; height: 100px; border: 3px solid #555; border-radius: 10px;
+            background: black; position: relative; overflow: hidden; transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .mini-screen p { margin: 0; color: white; font-family: sans-serif; font-weight: bold; text-shadow: 0 0 5px black; }
+
     </style>
 </head>
 <body>
@@ -130,11 +137,11 @@
     <div id="loginScreen">
         <div class="terminal-box">
             <h2>SYSTEM LOCKED</h2>
-            <p style="color: #666; font-size: 12px;">Hint: sukoon</p>
-            <input type="password" id="pwdInput" class="hacker-input" placeholder="Enter Passcode" onkeypress="handleEnter(event)">
-            <br><br>
+            <p style="color: #666; font-size: 12px; font-family: sans-serif;">Hint: sukoon</p>
+            <input type="password" id="pwdInput" class="hacker-input" placeholder="Passcode" onkeypress="handleEnter(event)">
+            <br>
             <button class="hacker-btn" onclick="checkAuth()">[ INITIATE OVERRIDE ]</button>
-            <p id="errorMsg" style="color: red; display: none;">ACCESS DENIED</p>
+            <p id="errorMsg" style="color: #ff3366; display: none; margin-top: 15px;">ACCESS DENIED</p>
         </div>
     </div>
 
@@ -144,103 +151,123 @@
         
         <div class="grid-container">
             
-            <!-- LEFT PANEL: ADD ACT -->
+            <!-- ADD ACT FORM -->
             <div class="control-panel">
-                <h3>[+] REGISTER NEW PERFORMANCE</h3>
+                <h3>[+] REGISTER CHAPTER / ACT</h3>
                 <div class="input-group">
                     <label>S.No.</label>
                     <input type="number" id="actNo" placeholder="e.g., 1">
                 </div>
                 <div class="input-group">
                     <label>Performance Name</label>
-                    <input type="text" id="actName" placeholder="e.g., Group Dance">
+                    <input type="text" id="actName" placeholder="e.g., Lamp Lighting">
                 </div>
                 <div class="input-group">
                     <label>Class / Group</label>
                     <input type="text" id="actClass" placeholder="e.g., Class 12-A">
                 </div>
                 <div class="input-group">
-                    <label>Custom Picture</label>
+                    <label>Profile/Display Pic (Visible in Waiting Room)</label>
                     <input type="file" id="actPic" accept="image/*">
                 </div>
-                <div class="input-group">
-                    <label>Auto-Start Visual Effect</label>
-                    <select id="actFx">
-                        <option value='{"type":"solid","color":"#050505"}'>Default Dark</option>
-                        <option value='{"type":"pulse","color":"#0000ff"}'>Blue Pulse</option>
-                        <option value='{"type":"tiranga","color":""}'>Tiranga 🇮🇳</option>
-                        <option value='{"type":"solid","color":"#f1c40f"}'>Gold Glow</option>
-                    </select>
-                </div>
 
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="hacker-btn" onclick="saveActToAdmin()" style="flex: 1;">SAVE IN ADMIN</button>
-                    <button class="hacker-btn" onclick="hostDirectLive()" style="flex: 1; border-color: #f1c40f; color: #f1c40f;">DIRECT HOST LIVE</button>
-                </div>
+                <button class="hacker-btn" style="width: 100%; margin-top: 10px;" onclick="saveActToAdmin()">SAVE TO DATABASE</button>
             </div>
 
-            <!-- RIGHT PANEL: MASTER CONTROLS -->
+            <!-- MASTER CONTROLS -->
             <div class="control-panel">
-                <h3>[!] LIVE STATUS</h3>
-                <div style="background: rgba(241, 196, 15, 0.1); border: 1px solid #f1c40f; padding: 15px; margin-bottom: 20px;">
-                    <h2 id="liveActDisplay" style="color: white; margin: 0 0 10px 0;">OFFLINE</h2>
-                    <button class="hacker-btn btn-danger" onclick="endCurrentAct()">[ END CURRENT ACT ]</button>
+                <h3>[!] LIVE BROADCAST STATUS</h3>
+                <div style="background: rgba(241, 196, 15, 0.05); border: 1px solid var(--gold); padding: 20px; text-align: center; margin-bottom: 25px; border-radius: 8px;">
+                    <p style="margin: 0 0 5px 0; color: #888;">CURRENTLY LIVE:</p>
+                    <h2 id="liveActDisplay" style="color: var(--gold); margin: 0 0 15px 0; text-transform: uppercase;">OFFLINE</h2>
+                    <button class="hacker-btn btn-danger" onclick="endCurrentAct()">[ CUT FEED / END ACT ]</button>
                 </div>
 
-                <h3>🎛️ MASTER FX CONTROLLER</h3>
-                <p style="font-size: 12px; color: #888;">Open the DJ keyboard to control audience screens instantly in landscape mode.</p>
-                <button class="hacker-btn" style="width: 100%; background: var(--neon-green); color: black; font-size: 18px; padding: 15px;" onclick="openDJController()">OPEN DJ KEYBOARD</button>
+                <h3>🎛️ MANUAL DJ OVERRIDE</h3>
+                <p style="font-size: 13px; color: #888;">Open the landscape keyboard to control audience screens directly.</p>
+                <button class="hacker-btn" style="width: 100%; font-size: 16px; padding: 15px;" onclick="openDJController()">LAUNCH DJ KEYBOARD</button>
             </div>
             
-            <!-- BOTTOM PANEL: SAVED ACTS -->
+            <!-- SAVED ACTS LIST -->
             <div class="control-panel" style="grid-column: 1 / -1;">
-                <h3>[📁] SECURE DATABASE</h3>
-                <div class="act-list" id="savedActsList"></div>
+                <h3>[📁] CHAPTERS & PERFORMANCES (Click Act to Configure & Host)</h3>
+                <div class="act-list" id="savedActsList">
+                    <p style="color: #666; text-align: center;">Database empty.</p>
+                </div>
             </div>
 
         </div>
     </div>
 
-    <!-- 3. DJ LIVE CONTROLLER (THE KEYBOARD) -->
-    <div id="djController">
-        <div class="dj-header">
-            <h2 style="margin:0; font-size:18px;">🔴 LIVE DJ CONTROLS</h2>
-            <button class="hacker-btn btn-danger" onclick="closeDJController()" style="margin:0; padding: 5px 10px;">X CLOSE</button>
-        </div>
-
-        <!-- Live Preview Screen -->
-        <div class="preview-container">
-            <span style="font-size: 12px; color: #888; margin-bottom: 5px;">PARENTS SCREEN PREVIEW</span>
-            <div class="mini-screen" id="previewScreen">
-                <p>Audience Screen</p>
+    <!-- 3. ACT STUDIO (Modal to configure specific effects) -->
+    <div id="actStudio">
+        <div class="studio-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+                <h2 style="margin: 0; color: #fff;" id="studioActName">Act Name</h2>
+                <button class="hacker-btn btn-danger" style="padding: 5px 10px;" onclick="closeActStudio()">X</button>
             </div>
-        </div>
-
-        <!-- The Button Grid -->
-        <div class="dj-grid">
-            <button class="dj-btn c-black" onclick="triggerFX('solid', '#0b132b')">RESET DARK</button>
-            <button class="dj-btn c-red" onclick="triggerFX('solid', '#ff0000')">RED</button>
-            <button class="dj-btn c-blue" onclick="triggerFX('solid', '#0000ff')">BLUE</button>
-            <button class="dj-btn c-green" onclick="triggerFX('solid', '#00ff00')">GREEN</button>
             
-            <button class="dj-btn c-gold" onclick="triggerFX('solid', '#f1c40f')">GOLD</button>
-            <button class="dj-btn c-purple" onclick="triggerFX('solid', '#8e44ad')">PURPLE</button>
-            <button class="dj-btn c-cyan" onclick="triggerFX('solid', '#00ffff')">CYAN</button>
-            <button class="dj-btn" style="background:#ff9a9e; color:black;" onclick="triggerFX('solid', '#ff9a9e')">PINK</button>
+            <!-- Hidden input -->
+            <input type="hidden" id="studioActNo">
 
-            <button class="dj-btn c-blue" style="box-shadow: 0 0 15px blue;" onclick="triggerFX('pulse', '#0000ff')">BLUE PULSE</button>
-            <button class="dj-btn c-red" style="box-shadow: 0 0 15px red;" onclick="triggerFX('pulse', '#ff0000')">RED PULSE</button>
-            <button class="dj-btn c-tiranga" onclick="triggerFX('tiranga', '')">TIRANGA 🇮🇳</button>
-            <button class="dj-btn c-strobe" onclick="triggerFX('strobe', '')">STROBE ⚡</button>
+            <div class="input-group">
+                <label style="color: var(--neon);">Show Type (Audience Screen Effect)</label>
+                <select id="studioFxType">
+                    <option value="solid_black">Dark / Offline (Default)</option>
+                    <option value="pulse_blue">Relaxing Blue Pulse</option>
+                    <option value="flash_strobe">Aggressive White Strobe</option>
+                    <option value="tiranga">Tiranga Flag 🇮🇳</option>
+                    <option value="custom_image">Custom Background Image</option>
+                </select>
+            </div>
+
+            <!-- Custom Image Upload -->
+            <div class="input-group" id="studioImageUploadGroup" style="display: none;">
+                <label style="color: var(--neon);">Upload Fullscreen AI Image</label>
+                <input type="file" id="studioBgImage" accept="image/*">
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="hacker-btn" style="flex: 1;" onclick="saveActStudioConfig()">SAVE CONFIG</button>
+                <button class="hacker-btn btn-gold" style="flex: 1;" onclick="hostStudioActLive()">HOST LIVE NOW ✨</button>
+            </div>
         </div>
     </div>
 
-    <!-- Firebase SDK -->
+    <!-- 4. DJ LIVE CONTROLLER -->
+    <div id="djController">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px;">
+            <h2 style="margin:0; font-family: sans-serif; color: #fff;">🔴 DJ LIVE LAUNCHPAD</h2>
+            <button class="hacker-btn btn-danger" onclick="closeDJController()">EXIT TO ADMIN</button>
+        </div>
+
+        <!-- LIVE TESTING PREVIEW -->
+        <div class="preview-container">
+            <span style="font-size: 12px; color: #888; margin-bottom: 5px;">LIVE TESTING PREVIEW (Audience Screen)</span>
+            <div class="mini-screen" id="previewScreen">
+                <p>Audience</p>
+            </div>
+        </div>
+
+        <div class="dj-grid">
+            <button class="dj-btn" style="background: #111; color: #fff; border: 1px solid #444;" onclick="triggerManualFX('solid', '#000')">RESET DARK</button>
+            <button class="dj-btn c-red" onclick="triggerManualFX('solid', '#ff0000')">SOLID RED</button>
+            <button class="dj-btn c-blue" onclick="triggerManualFX('solid', '#0000ff')">SOLID BLUE</button>
+            <button class="dj-btn c-green" onclick="triggerManualFX('solid', '#00ff00')">SOLID GREEN</button>
+            
+            <button class="dj-btn" style="background: #111; color: #00ffcc; border: 1px solid #00ffcc;" onclick="triggerManualFX('pulse', '#00ffcc')">NEON PULSE</button>
+            <button class="dj-btn c-blue" style="box-shadow: 0 0 20px blue;" onclick="triggerManualFX('pulse', '#0000ff')">BLUE PULSE</button>
+            <button class="dj-btn c-tiranga" onclick="triggerManualFX('tiranga', '')">TIRANGA 🇮🇳</button>
+            <button class="dj-btn c-strobe" onclick="triggerManualFX('strobe', '')">WHITE STROBE ⚡</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Setup -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // FIREBASE CONFIG
+        // YAHAN APNI FIREBASE CONFIG DAAL DE BHAII
         const firebaseConfig = {
             apiKey: "AIzaSyDdluLR3iRPThrHJgl4Ag-3sCUtWqjeNiA",
             authDomain: "jbps-voting-app-64e09.firebaseapp.com",
@@ -253,19 +280,21 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Security
+        let currentSavedActs = {}; 
+
+        // --- AUTH ---
         function handleEnter(e) { if(e.key === 'Enter') checkAuth(); }
         function checkAuth() {
             if(document.getElementById('pwdInput').value === "7734") {
                 document.getElementById('loginScreen').style.display = "none";
                 document.getElementById('adminPanel').style.display = "block";
-                loadSavedActs();
+                loadActsFromDB();
             } else {
                 document.getElementById('errorMsg').style.display = "block";
             }
         }
 
-        // Image Base64
+        // --- BASE64 CONVERTER ---
         function getBase64Image(file) {
             return new Promise((resolve) => {
                 if(!file) { resolve(""); return; }
@@ -275,76 +304,55 @@
             });
         }
 
-        // Save & Host Logic
+        // --- SAVE ACT (Initial Add) ---
         async function saveActToAdmin() {
             const no = document.getElementById('actNo').value;
             const name = document.getElementById('actName').value;
             const cls = document.getElementById('actClass').value;
-            const fx = JSON.parse(document.getElementById('actFx').value);
             const fileInput = document.getElementById('actPic').files[0];
 
             if(!no || !name) { alert("S.No and Name are required!"); return; }
 
             const base64Pic = await getBase64Image(fileInput);
-            const actData = { no, name, class: cls, pic: base64Pic, autoFx: fx };
+            
+            const actData = { 
+                no: no, name: name, class: cls, pic: base64Pic,
+                fxType: "solid_black", customBg: "" 
+            };
             
             database.ref('admin_saved_acts/' + no).set(actData);
             
-            // Clear
             document.getElementById('actNo').value = "";
             document.getElementById('actName').value = "";
             document.getElementById('actClass').value = "";
             document.getElementById('actPic').value = "";
         }
 
-        async function hostDirectLive() {
-            const no = document.getElementById('actNo').value || "-";
-            const name = document.getElementById('actName').value;
-            const cls = document.getElementById('actClass').value;
-            const fx = JSON.parse(document.getElementById('actFx').value);
-            const fileInput = document.getElementById('actPic').files[0];
-
-            if(!name) { alert("Name required!"); return; }
-            const base64Pic = await getBase64Image(fileInput);
-            const actData = { no, name, class: cls, pic: base64Pic, status: "live", autoFx: fx };
-
-            if(no !== "-") database.ref('admin_saved_acts/' + no).set(actData);
-            makeActLive(actData);
-        }
-
-        function makeActLive(actData) {
-            actData.status = "live";
-            database.ref('current_act').set(actData);
-            
-            // Trigger the auto-fx saved with this act
-            if(actData.autoFx) {
-                triggerFX(actData.autoFx.type, actData.autoFx.color);
-            }
-        }
-
-        function endCurrentAct() {
-            database.ref('current_act').set({ name: "", status: "ended" });
-            triggerFX("solid", "#0b132b"); // Reset to dark
-        }
-
-        // Load Acts
-        function loadSavedActs() {
+        // --- LOAD ACTS TO UI ---
+        function loadActsFromDB() {
             database.ref('admin_saved_acts').on('value', (snapshot) => {
-                const acts = snapshot.val();
+                currentSavedActs = snapshot.val() || {};
                 const listDiv = document.getElementById('savedActsList');
                 listDiv.innerHTML = "";
-                if(!acts) return;
 
-                Object.values(acts).sort((a,b) => a.no - b.no).forEach(act => {
-                    const picHtml = act.pic ? `<img src="${act.pic}" class="act-pic">` : `<div class="act-pic">NO IMG</div>`;
+                if(Object.keys(currentSavedActs).length === 0) {
+                    listDiv.innerHTML = '<p style="color: #666; text-align: center;">Database empty.</p>';
+                    return;
+                }
+
+                Object.values(currentSavedActs).sort((a,b) => a.no - b.no).forEach(act => {
+                    const fxBadge = act.fxType !== "solid_black" ? `<span style="background: #222; color: var(--gold); padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-left: 10px;">FX: ${act.fxType}</span>` : "";
+                    
                     listDiv.innerHTML += `
-                        <div class="act-item">
-                            <div style="display: flex; align-items: center; flex-grow: 1;">
-                                <span class="act-id">[${act.no}]</span> ${picHtml}
-                                <div><strong style="color: white; font-size: 18px;">${act.name}</strong><br>
-                                <span style="color: #888;">Class: ${act.class} | FX: ${act.autoFx ? act.autoFx.type : 'none'}</span></div>
+                        <div class="act-item" onclick="openActStudio('${act.no}')">
+                            <div style="display: flex; align-items: center;">
+                                <div class="act-id">${act.no}</div>
+                                <div>
+                                    <div style="color: white; font-size: 18px; font-weight: bold; font-family: sans-serif;">${act.name}</div>
+                                    <div style="color: #888; font-size: 14px; margin-top: 4px;">Class: ${act.class} ${fxBadge}</div>
+                                </div>
                             </div>
-                            <button class="hacker-btn" style="border-color: #f1c40f; color: #f1c40f;" onclick='makeActLive(${JSON.stringify(act).replace(/'/g, "&apos;")})'>HOST LIVE</button>
+                            <div style="color: var(--neon); font-size: 24px;">⚙️</div>
                         </div>
                     `;
                 });
@@ -356,36 +364,95 @@
             });
         }
 
-        // ================= DJ CONTROLLER LOGIC =================
-        function openDJController() {
+            // --- ACT STUDIO LOGIC (Modal) ---
+        // Ensure this function is globally accessible
+        window.openActStudio = function(actNo) {
+            const act = currentSavedActs[actNo];
+            if(!act) return;
+            document.getElementById('studioActNo').value = act.no;
+            document.getElementById('studioActName').innerText = act.name;
+            document.getElementById('studioFxType').value = act.fxType || "solid_black";
+            
+            toggleImageUpload(); 
+            document.getElementById('actStudio').style.display = "flex";
+        };
+
+        function closeActStudio() {
+            document.getElementById('actStudio').style.display = "none";
+        }
+
+        document.getElementById('studioFxType').addEventListener('change', toggleImageUpload);
+        function toggleImageUpload() {
+            const fxType = document.getElementById('studioFxType').value;
+            document.getElementById('studioImageUploadGroup').style.display = (fxType === "custom_image") ? "flex" : "none";
+        }
+
+        async function saveActStudioConfig() {
+            const no = document.getElementById('studioActNo').value;
+            const fxType = document.getElementById('studioFxType').value;
+            let base64Bg = currentSavedActs[no].customBg || ""; 
+
+            if(fxType === "custom_image") {
+                const fileInput = document.getElementById('studioBgImage').files[0];
+                if(fileInput) base64Bg = await getBase64Image(fileInput);
+            }
+
+            database.ref(`admin_saved_acts/${no}/fxType`).set(fxType);
+            database.ref(`admin_saved_acts/${no}/customBg`).set(base64Bg);
+            alert("Configuration Saved!");
+            closeActStudio();
+        }
+
+        function hostStudioActLive() {
+            const no = document.getElementById('studioActNo').value;
+            const act = currentSavedActs[no];
+            
+            database.ref('current_act').set({
+                name: act.name, class: act.class, pic: act.pic, status: "live"
+            });
+
+            let payload = { type: 'solid', color: '#000' }; 
+            if (act.fxType === "pulse_blue") payload = { type: "pulse", color: "#0000ff" };
+            else if (act.fxType === "flash_strobe") payload = { type: "strobe", color: "" };
+            else if (act.fxType === "tiranga") payload = { type: "tiranga", color: "" };
+            else if (act.fxType === "custom_image") payload = { type: "image", src: act.customBg };
+
+            database.ref('audience_fx').set(payload);
+            closeActStudio();
+        }
+
+        function endCurrentAct() {
+            database.ref('current_act').set({ name: "", status: "ended" });
+            database.ref('audience_fx').set({ type: "solid", color: "#050505" });
+        }
+
+        // --- DJ CONTROLLER & LIVE PREVIEW ---
+        window.openDJController = function() {
             document.getElementById('adminPanel').style.display = 'none';
             document.getElementById('djController').style.display = 'flex';
-        }
+        };
 
-        function closeDJController() {
+        window.closeDJController = function() {
             document.getElementById('djController').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
-        }
+        };
 
-        // Send FX command to Firebase
-        function triggerFX(type, color) {
+        window.triggerManualFX = function(type, color) {
             database.ref('audience_fx').set({ type: type, color: color });
-        }
+        };
 
-        // Live Preview Listener
+        // Live Preview Updater
         database.ref('audience_fx').on('value', (snap) => {
             const fx = snap.val();
             const preview = document.getElementById('previewScreen');
-            if(!fx) return;
+            if(!fx || !preview) return;
 
-            // Reset animations
             preview.style.animation = 'none';
             
             if(fx.type === 'solid') {
                 preview.style.background = fx.color;
             } else if (fx.type === 'pulse') {
                 preview.style.background = fx.color;
-                // Add simple pulse logic via box-shadow for preview
                 preview.style.boxShadow = `inset 0 0 50px white`;
                 setTimeout(() => preview.style.boxShadow = 'none', 500);
             } else if (fx.type === 'tiranga') {
@@ -396,5 +463,4 @@
         });
     </script>
 </body>
-                </html>
-                
+</html>
